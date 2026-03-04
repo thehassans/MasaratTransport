@@ -34,12 +34,12 @@ export default function FleetSection() {
   const { t } = useLang();
 
   return (
-    <section id="fleet" className="relative py-24 sm:py-32 bg-[#050505] overflow-hidden">
+    <section id="fleet" className="relative py-24 sm:py-32 bg-[#FAFAF8] overflow-hidden">
       {/* Background */}
       <div className="absolute inset-0 pointer-events-none">
         <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-[#C9A84C]/20 to-transparent" />
-        <div className="absolute top-1/3 right-0 w-96 h-96 bg-[#C9A84C]/5 rounded-full blur-[150px]" />
-        <div className="absolute bottom-1/3 left-0 w-96 h-96 bg-[#C9A84C]/4 rounded-full blur-[150px]" />
+        <div className="absolute top-1/3 right-0 w-96 h-96 bg-[#C9A84C]/8 rounded-full blur-[180px]" />
+        <div className="absolute bottom-1/3 left-0 w-96 h-96 bg-[#C9A84C]/6 rounded-full blur-[180px]" />
       </div>
 
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -51,8 +51,8 @@ export default function FleetSection() {
               Sitara Fleet
             </span>
           </div>
-          <h2 className="text-4xl sm:text-5xl font-black text-white mb-4">{t("fleet.title")}</h2>
-          <p className="text-white/40 text-lg max-w-2xl mx-auto">{t("fleet.sub")}</p>
+          <h2 className="text-4xl sm:text-5xl font-black text-[#111111] mb-4">{t("fleet.title")}</h2>
+          <p className="text-[#777777] text-lg max-w-2xl mx-auto">{t("fleet.sub")}</p>
         </div>
 
         {/* Fleet Grid */}
@@ -60,10 +60,10 @@ export default function FleetSection() {
           {fleet.map((vehicle, i) => (
             <div
               key={i}
-              className="group relative rounded-2xl overflow-hidden bg-white/[0.03] border border-white/[0.06] hover:border-[#C9A84C]/30 transition-all duration-500 cursor-default"
+              className="group relative rounded-2xl overflow-hidden bg-white border border-[#E8E3DB] hover:border-[#C9A84C]/40 hover:shadow-lg hover:shadow-[#C9A84C]/8 transition-all duration-500 cursor-default"
             >
               {/* Image container */}
-              <div className="relative h-52 overflow-hidden bg-[#0d0d0d]">
+              <div className="relative h-52 overflow-hidden bg-[#F0EDE8]">
                 <Image
                   src={vehicle.image}
                   alt={t(vehicle.titleKey)}
@@ -72,14 +72,14 @@ export default function FleetSection() {
                   onError={() => {}}
                 />
                 {/* Placeholder shown when no image */}
-                <div className="absolute inset-0 flex items-center justify-center bg-gradient-to-br from-[#111] to-[#0a0a0a]">
+                <div className="absolute inset-0 flex items-center justify-center bg-gradient-to-br from-[#F0EDE8] to-[#E8E4DC]">
                   <div className="text-center">
                     <div className="text-4xl mb-2">🚛</div>
-                    <div className="text-white/20 text-xs">Image Coming Soon</div>
+                    <div className="text-[#AAAAAA] text-xs">Image Coming Soon</div>
                   </div>
                 </div>
                 {/* Image overlay gradient */}
-                <div className="absolute inset-0 bg-gradient-to-t from-[#050505] via-transparent to-transparent opacity-80" />
+                <div className="absolute inset-0 bg-gradient-to-t from-[#FAFAF8]/80 via-transparent to-transparent" />
                 {/* Tag */}
                 <div className="absolute top-3 right-3 px-2.5 py-1 bg-[#C9A84C] rounded-md text-[#050505] text-[10px] font-black tracking-widest">
                   {vehicle.tag}
@@ -88,10 +88,10 @@ export default function FleetSection() {
 
               {/* Content */}
               <div className="p-5">
-                <h3 className="text-white font-bold text-base mb-1.5 group-hover:text-[#E8C96A] transition-colors duration-300">
+                <h3 className="text-[#111111] font-bold text-base mb-1.5 group-hover:text-[#C9A84C] transition-colors duration-300">
                   {t(vehicle.titleKey)}
                 </h3>
-                <p className="text-white/35 text-sm leading-relaxed">{t(vehicle.descKey)}</p>
+                <p className="text-[#777777] text-sm leading-relaxed">{t(vehicle.descKey)}</p>
               </div>
 
               {/* Bottom gold line */}

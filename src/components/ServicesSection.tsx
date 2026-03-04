@@ -46,12 +46,12 @@ export default function ServicesSection() {
   const { t } = useLang();
 
   return (
-    <section id="services" className="relative py-24 sm:py-32 bg-[#080808] overflow-hidden">
+    <section id="services" className="relative py-24 sm:py-32 bg-[#F4F2ED] overflow-hidden">
       {/* Background accent */}
       <div className="absolute inset-0 pointer-events-none">
-        <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-[#C9A84C]/30 to-transparent" />
-        <div className="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-[#C9A84C]/30 to-transparent" />
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-[#C9A84C]/3 rounded-full blur-[200px]" />
+        <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-[#C9A84C]/25 to-transparent" />
+        <div className="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-[#C9A84C]/25 to-transparent" />
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-[#C9A84C]/5 rounded-full blur-[200px]" />
       </div>
 
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -63,10 +63,10 @@ export default function ServicesSection() {
               What We Offer
             </span>
           </div>
-          <h2 className="text-4xl sm:text-5xl font-black text-white mb-4">
+          <h2 className="text-4xl sm:text-5xl font-black text-[#111111] mb-4">
             {t("services.title")}
           </h2>
-          <p className="text-white/40 text-lg max-w-2xl mx-auto">{t("services.sub")}</p>
+          <p className="text-[#777777] text-lg max-w-2xl mx-auto">{t("services.sub")}</p>
         </div>
 
         {/* Services Grid */}
@@ -76,13 +76,13 @@ export default function ServicesSection() {
             return (
               <div
                 key={i}
-                className="group relative bg-white/[0.03] border border-white/[0.06] rounded-2xl p-7 hover:border-[#C9A84C]/30 hover:bg-white/[0.06] transition-all duration-500 cursor-default overflow-hidden"
+                className="group relative bg-white border border-[#E8E3DB] rounded-2xl p-7 hover:border-[#C9A84C]/40 hover:shadow-md hover:shadow-[#C9A84C]/8 transition-all duration-500 cursor-default overflow-hidden"
               >
                 {/* Hover glow */}
-                <div className="absolute inset-0 bg-gradient-to-br from-[#C9A84C]/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-2xl" />
+                <div className="absolute inset-0 bg-gradient-to-br from-[#C9A84C]/4 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-2xl" />
 
                 {/* Number */}
-                <div className="absolute top-5 right-5 text-white/[0.04] text-5xl font-black select-none">
+                <div className="absolute top-5 right-5 text-[#111111]/[0.04] text-5xl font-black select-none">
                   {String(i + 1).padStart(2, "0")}
                 </div>
 
@@ -94,10 +94,10 @@ export default function ServicesSection() {
                 </div>
 
                 {/* Content */}
-                <h3 className="text-white font-bold text-lg mb-3 group-hover:text-[#E8C96A] transition-colors duration-300">
+                <h3 className="text-[#111111] font-bold text-lg mb-3 group-hover:text-[#C9A84C] transition-colors duration-300">
                   {t(service.titleKey)}
                 </h3>
-                <p className="text-white/40 text-sm leading-relaxed">{t(service.descKey)}</p>
+                <p className="text-[#777777] text-sm leading-relaxed">{t(service.descKey)}</p>
 
                 {/* Bottom accent line */}
                 <div className="absolute bottom-0 left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-[#C9A84C]/0 to-transparent group-hover:via-[#C9A84C]/60 transition-all duration-500" />

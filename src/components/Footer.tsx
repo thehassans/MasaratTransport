@@ -70,10 +70,10 @@ export default function Footer() {
   const enabledSocials = settings?.socialLinks?.filter((s) => s.enabled) ?? [];
 
   return (
-    <footer className="relative bg-[#050505] border-t border-white/5 overflow-hidden">
+    <footer className="relative bg-[#F4F2ED] border-t border-[#E8E3DB] overflow-hidden">
       {/* Ambient glow */}
-      <div className="absolute top-0 left-1/4 w-96 h-96 bg-[#C9A84C]/5 rounded-full blur-[120px] pointer-events-none" />
-      <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-[#C9A84C]/3 rounded-full blur-[120px] pointer-events-none" />
+      <div className="absolute top-0 left-1/4 w-96 h-96 bg-[#C9A84C]/6 rounded-full blur-[150px] pointer-events-none" />
+      <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-[#C9A84C]/4 rounded-full blur-[150px] pointer-events-none" />
 
       {/* Top gold accent line */}
       <div className="h-[1px] w-full bg-gradient-to-r from-transparent via-[#C9A84C]/60 to-transparent" />
@@ -84,14 +84,14 @@ export default function Footer() {
           <div className="lg:col-span-1">
             <div className="mb-5">
               <Image
-                src="/images/logo.webp"
+                src="/images/masarat-logo.png"
                 alt="Masarat Transportation"
                 width={280}
                 height={112}
                 className="h-28 w-auto object-contain"
               />
             </div>
-            <p className="text-white/40 text-sm leading-relaxed mb-6">
+            <p className="text-[#777777] text-sm leading-relaxed mb-6">
               {lang === "ar" ? settings?.footerTaglineAr : settings?.footerTagline}
             </p>
             {/* Social Links */}
@@ -102,7 +102,7 @@ export default function Footer() {
                   href={social.url || "#"}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className={`w-9 h-9 rounded-xl border border-white/10 flex items-center justify-center text-white/50 hover:text-white hover:border-transparent transition-all duration-300 ${socialColors[social.platform] ?? "hover:bg-white/10"}`}
+                  className={`w-9 h-9 rounded-xl border border-[#E8E3DB] flex items-center justify-center text-[#888888] hover:text-white hover:border-transparent transition-all duration-300 ${socialColors[social.platform] ?? "hover:bg-[#333333]"}`}
                   aria-label={social.platform}
                 >
                   {socialIcons[social.platform]}
@@ -113,7 +113,7 @@ export default function Footer() {
 
           {/* Services */}
           <div>
-            <h4 className="text-white font-semibold text-sm tracking-widest uppercase mb-6 flex items-center gap-2">
+            <h4 className="text-[#111111] font-semibold text-sm tracking-widest uppercase mb-6 flex items-center gap-2">
               <span className="w-6 h-[1px] bg-[#C9A84C]" />
               {t("footer.services")}
             </h4>
@@ -129,7 +129,7 @@ export default function Footer() {
                 <li key={item.label}>
                   <Link
                     href={item.href}
-                    className="text-white/40 hover:text-[#C9A84C] transition-colors duration-200 text-sm flex items-center gap-2 group"
+                    className="text-[#777777] hover:text-[#C9A84C] transition-colors duration-200 text-sm flex items-center gap-2 group"
                   >
                     <span className="w-0 group-hover:w-3 h-[1px] bg-[#C9A84C] transition-all duration-300" />
                     {item.label}
@@ -141,7 +141,7 @@ export default function Footer() {
 
           {/* Company */}
           <div>
-            <h4 className="text-white font-semibold text-sm tracking-widest uppercase mb-6 flex items-center gap-2">
+            <h4 className="text-[#111111] font-semibold text-sm tracking-widest uppercase mb-6 flex items-center gap-2">
               <span className="w-6 h-[1px] bg-[#C9A84C]" />
               {t("footer.company_label")}
             </h4>
@@ -155,7 +155,7 @@ export default function Footer() {
                 <li key={item.label}>
                   <Link
                     href={item.href}
-                    className="text-white/40 hover:text-[#C9A84C] transition-colors duration-200 text-sm flex items-center gap-2 group"
+                    className="text-[#777777] hover:text-[#C9A84C] transition-colors duration-200 text-sm flex items-center gap-2 group"
                   >
                     <span className="w-0 group-hover:w-3 h-[1px] bg-[#C9A84C] transition-all duration-300" />
                     {item.label}
@@ -167,18 +167,29 @@ export default function Footer() {
 
           {/* Contact */}
           <div>
-            <h4 className="text-white font-semibold text-sm tracking-widest uppercase mb-6 flex items-center gap-2">
+            <h4 className="text-[#111111] font-semibold text-sm tracking-widest uppercase mb-6 flex items-center gap-2">
               <span className="w-6 h-[1px] bg-[#C9A84C]" />
               {t("footer.contact")}
             </h4>
             <ul className="space-y-4">
-              {settings?.phone && (
+              <li>
+                <a
+                  href="tel:+966534454300"
+                  className="flex items-start gap-3 text-[#555555] hover:text-[#C9A84C] transition-colors duration-200 group"
+                >
+                  <div className="w-8 h-8 rounded-lg bg-[#C9A84C]/10 group-hover:bg-[#C9A84C]/20 flex items-center justify-center flex-shrink-0 transition-colors duration-300">
+                    <Phone className="w-4 h-4 text-[#C9A84C]" />
+                  </div>
+                  <span className="text-sm pt-1.5">+966 53 445 4300</span>
+                </a>
+              </li>
+              {settings?.phone && settings.phone !== "+966534454300" && (
                 <li>
                   <a
                     href={`tel:${settings.phone}`}
-                    className="flex items-start gap-3 text-white/40 hover:text-white transition-colors duration-200 group"
+                    className="flex items-start gap-3 text-[#555555] hover:text-[#C9A84C] transition-colors duration-200 group"
                   >
-                    <div className="w-8 h-8 rounded-lg bg-white/5 group-hover:bg-[#C9A84C]/20 flex items-center justify-center flex-shrink-0 transition-colors duration-300">
+                    <div className="w-8 h-8 rounded-lg bg-[#C9A84C]/10 group-hover:bg-[#C9A84C]/20 flex items-center justify-center flex-shrink-0 transition-colors duration-300">
                       <Phone className="w-4 h-4 text-[#C9A84C]" />
                     </div>
                     <span className="text-sm pt-1.5">{settings.phone}</span>
@@ -189,9 +200,9 @@ export default function Footer() {
                 <li>
                   <a
                     href={`mailto:${settings.email}`}
-                    className="flex items-start gap-3 text-white/40 hover:text-white transition-colors duration-200 group"
+                    className="flex items-start gap-3 text-[#555555] hover:text-[#C9A84C] transition-colors duration-200 group"
                   >
-                    <div className="w-8 h-8 rounded-lg bg-white/5 group-hover:bg-[#C9A84C]/20 flex items-center justify-center flex-shrink-0 transition-colors duration-300">
+                    <div className="w-8 h-8 rounded-lg bg-[#C9A84C]/10 group-hover:bg-[#C9A84C]/20 flex items-center justify-center flex-shrink-0 transition-colors duration-300">
                       <Mail className="w-4 h-4 text-[#C9A84C]" />
                     </div>
                     <span className="text-sm pt-1.5 break-all">{settings.email}</span>
@@ -200,8 +211,8 @@ export default function Footer() {
               )}
               {settings?.address && (
                 <li>
-                  <div className="flex items-start gap-3 text-white/40">
-                    <div className="w-8 h-8 rounded-lg bg-white/5 flex items-center justify-center flex-shrink-0">
+                  <div className="flex items-start gap-3 text-[#555555]">
+                    <div className="w-8 h-8 rounded-lg bg-[#C9A84C]/10 flex items-center justify-center flex-shrink-0">
                       <MapPin className="w-4 h-4 text-[#C9A84C]" />
                     </div>
                     <span className="text-sm pt-1.5">
@@ -216,15 +227,15 @@ export default function Footer() {
       </div>
 
       {/* Bottom bar */}
-      <div className="border-t border-white/5">
+      <div className="border-t border-[#E8E3DB]">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 flex flex-col sm:flex-row items-center justify-between gap-4">
-          <p className="text-white/25 text-xs">
+          <p className="text-[#AAAAAA] text-xs">
             © {new Date().getFullYear()} {t("footer.company")}. {t("footer.rights")}
           </p>
           <div className="flex items-center gap-1">
-            <span className="text-white/15 text-xs">Crafted with</span>
+            <span className="text-[#BBBBBB] text-xs">Crafted with</span>
             <span className="text-[#C9A84C] text-xs mx-1">♦</span>
-            <span className="text-white/15 text-xs">in Saudi Arabia</span>
+            <span className="text-[#BBBBBB] text-xs">in Saudi Arabia</span>
           </div>
         </div>
       </div>

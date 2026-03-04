@@ -1,10 +1,15 @@
 @import "tailwindcss";
 
 :root {
-  --background: #050505;
-  --foreground: #ffffff;
+  --background: #FAFAF8;
+  --foreground: #111111;
+  --surface: #FFFFFF;
+  --surface-alt: #F4F2ED;
   --gold: #C9A84C;
   --gold-light: #E8C96A;
+  --border: #E8E3DB;
+  --text-secondary: #555555;
+  --text-muted: #909090;
 }
 
 body {
@@ -25,14 +30,14 @@ body {
   width: 6px;
 }
 ::-webkit-scrollbar-track {
-  background: #050505;
+  background: #F4F2ED;
 }
 ::-webkit-scrollbar-thumb {
-  background: #C9A84C40;
+  background: #C9A84C50;
   border-radius: 3px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: #C9A84C80;
+  background: #C9A84C90;
 }
 
 /* Partners marquee animation */
@@ -69,8 +74,8 @@ body {
 /* Hero grid pattern */
 .hero-grid {
   background-image:
-    linear-gradient(rgba(201, 168, 76, 0.08) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(201, 168, 76, 0.08) 1px, transparent 1px);
+    linear-gradient(rgba(201, 168, 76, 0.06) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(201, 168, 76, 0.06) 1px, transparent 1px);
   background-size: 80px 80px;
 }
 
@@ -91,6 +96,6 @@ body {
 
 /* Selection color */
 ::selection {
-  background: #C9A84C30;
-  color: #E8C96A;
+  background: #C9A84C25;
+  color: #8B6914;
 }

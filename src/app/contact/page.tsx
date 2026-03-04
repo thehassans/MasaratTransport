@@ -54,17 +54,17 @@ export default function ContactPage() {
   };
 
   const inputClass =
-    "w-full bg-white/[0.04] border border-white/10 rounded-xl px-4 py-3.5 text-white placeholder-white/20 focus:outline-none focus:border-[#C9A84C]/50 focus:bg-white/[0.06] transition-all duration-300 text-sm";
+    "w-full bg-[#FAFAF8] border border-[#E8E3DB] rounded-xl px-4 py-3.5 text-[#111111] placeholder-[#BBBBBB] focus:outline-none focus:border-[#C9A84C]/60 focus:bg-white transition-all duration-300 text-sm";
 
   return (
-    <main className="min-h-screen bg-[#050505]">
+    <main className="min-h-screen bg-[#FAFAF8]">
       <Header />
 
       {/* Hero */}
       <section className="relative pt-32 pb-16 overflow-hidden">
         <div className="absolute inset-0 pointer-events-none">
           <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-[#C9A84C]/20 to-transparent" />
-          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-[#C9A84C]/5 rounded-full blur-[180px]" />
+          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-[#C9A84C]/8 rounded-full blur-[200px]" />
         </div>
         <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-[#C9A84C]/20 bg-[#C9A84C]/5 mb-6">
@@ -73,10 +73,10 @@ export default function ContactPage() {
               {lang === "ar" ? "تواصل معنا" : "Contact Us"}
             </span>
           </div>
-          <h1 className="text-4xl sm:text-5xl lg:text-6xl font-black text-white mb-4">
+          <h1 className="text-4xl sm:text-5xl lg:text-6xl font-black text-[#111111] mb-4">
             {t("contact.title")}
           </h1>
-          <p className="text-white/40 text-lg max-w-2xl mx-auto">{t("contact.sub")}</p>
+          <p className="text-[#777777] text-lg max-w-2xl mx-auto">{t("contact.sub")}</p>
         </div>
       </section>
 
@@ -89,8 +89,8 @@ export default function ContactPage() {
               {
                 icon: Phone,
                 label: lang === "ar" ? "اتصل بنا" : "Call Us",
-                value: "+966 50 000 0000",
-                href: "tel:+966500000000",
+                value: "+966 53 445 4300",
+                href: "tel:+966534454300",
                 sub: lang === "ar" ? "متاح 24/7" : "Available 24/7",
               },
               {
@@ -113,24 +113,24 @@ export default function ContactPage() {
                 <a
                   key={i}
                   href={item.href}
-                  className="group flex items-start gap-4 p-5 rounded-2xl border border-white/[0.06] bg-white/[0.02] hover:border-[#C9A84C]/30 hover:bg-white/[0.04] transition-all duration-300"
+                  className="group flex items-start gap-4 p-5 rounded-2xl border border-[#E8E3DB] bg-white hover:border-[#C9A84C]/40 hover:shadow-sm transition-all duration-300"
                 >
-                  <div className="w-12 h-12 rounded-xl bg-[#C9A84C]/10 group-hover:bg-[#C9A84C]/20 flex items-center justify-center flex-shrink-0 transition-all duration-300 border border-[#C9A84C]/20">
+                  <div className="w-12 h-12 rounded-xl bg-[#C9A84C]/10 group-hover:bg-[#C9A84C]/20 flex items-center justify-center flex-shrink-0 transition-all duration-300 border border-[#C9A84C]/15">
                     <Icon className="w-5 h-5 text-[#C9A84C]" />
                   </div>
                   <div>
-                    <div className="text-white/40 text-xs font-medium uppercase tracking-wider mb-1">
+                    <div className="text-[#888888] text-xs font-medium uppercase tracking-wider mb-1">
                       {item.label}
                     </div>
-                    <div className="text-white font-semibold text-sm mb-0.5">{item.value}</div>
-                    <div className="text-white/30 text-xs">{item.sub}</div>
+                    <div className="text-[#111111] font-semibold text-sm mb-0.5">{item.value}</div>
+                    <div className="text-[#AAAAAA] text-xs">{item.sub}</div>
                   </div>
                 </a>
               );
             })}
 
             {/* Decorative card */}
-            <div className="flex-1 rounded-2xl border border-[#C9A84C]/15 bg-gradient-to-br from-[#C9A84C]/5 to-transparent p-6 mt-2">
+            <div className="flex-1 rounded-2xl border border-[#C9A84C]/20 bg-gradient-to-br from-[#C9A84C]/6 to-[#FAFAF8] p-6 mt-2">
               <div className="text-[#C9A84C] font-bold text-lg mb-2">
                 {lang === "ar" ? "لماذا مسارات؟" : "Why Masarat?"}
               </div>
@@ -149,7 +149,7 @@ export default function ContactPage() {
                       "Expert dedicated team",
                     ]
                 ).map((point, i) => (
-                  <li key={i} className="flex items-center gap-2 text-white/50 text-sm">
+                  <li key={i} className="flex items-center gap-2 text-[#666666] text-sm">
                     <span className="w-1.5 h-1.5 rounded-full bg-[#C9A84C] flex-shrink-0" />
                     {point}
                   </li>
@@ -160,18 +160,18 @@ export default function ContactPage() {
 
           {/* Contact Form */}
           <div className="lg:col-span-3">
-            <div className="relative bg-white/[0.02] border border-white/[0.06] rounded-2xl p-6 sm:p-8">
+            <div className="relative bg-white border border-[#E8E3DB] rounded-2xl p-6 sm:p-8 shadow-sm">
               <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-[#C9A84C]/30 to-transparent rounded-t-2xl" />
 
               {status === "success" ? (
                 <div className="flex flex-col items-center justify-center py-16 text-center">
-                  <div className="w-16 h-16 rounded-full bg-[#C9A84C]/10 border border-[#C9A84C]/30 flex items-center justify-center mb-5">
+                  <div className="w-16 h-16 rounded-full bg-[#C9A84C]/10 border border-[#C9A84C]/25 flex items-center justify-center mb-5">
                     <CheckCircle className="w-8 h-8 text-[#C9A84C]" />
                   </div>
-                  <h3 className="text-white font-bold text-xl mb-3">
+                  <h3 className="text-[#111111] font-bold text-xl mb-3">
                     {lang === "ar" ? "تم الإرسال بنجاح!" : "Message Sent!"}
                   </h3>
-                  <p className="text-white/40 text-sm max-w-xs">{t("contact.success")}</p>
+                  <p className="text-[#777777] text-sm max-w-xs">{t("contact.success")}</p>
                   <button
                     onClick={() => setStatus("idle")}
                     className="mt-6 px-5 py-2 rounded-full border border-[#C9A84C]/30 text-[#C9A84C] text-sm hover:bg-[#C9A84C]/10 transition-colors duration-300"
@@ -183,7 +183,7 @@ export default function ContactPage() {
                 <form onSubmit={handleSubmit} className="space-y-4">
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     <div>
-                      <label className="block text-white/40 text-xs font-medium uppercase tracking-wider mb-2">
+                      <label className="block text-[#888888] text-xs font-medium uppercase tracking-wider mb-2">
                         {t("contact.name")} *
                       </label>
                       <input
@@ -197,7 +197,7 @@ export default function ContactPage() {
                       />
                     </div>
                     <div>
-                      <label className="block text-white/40 text-xs font-medium uppercase tracking-wider mb-2">
+                      <label className="block text-[#888888] text-xs font-medium uppercase tracking-wider mb-2">
                         {t("contact.phone")} *
                       </label>
                       <input
@@ -214,7 +214,7 @@ export default function ContactPage() {
 
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     <div>
-                      <label className="block text-white/40 text-xs font-medium uppercase tracking-wider mb-2">
+                      <label className="block text-[#888888] text-xs font-medium uppercase tracking-wider mb-2">
                         {t("contact.email")} *
                       </label>
                       <input
@@ -228,7 +228,7 @@ export default function ContactPage() {
                       />
                     </div>
                     <div>
-                      <label className="block text-white/40 text-xs font-medium uppercase tracking-wider mb-2">
+                      <label className="block text-[#888888] text-xs font-medium uppercase tracking-wider mb-2">
                         {t("contact.company")}
                       </label>
                       <input
@@ -243,7 +243,7 @@ export default function ContactPage() {
                   </div>
 
                   <div>
-                    <label className="block text-white/40 text-xs font-medium uppercase tracking-wider mb-2">
+                    <label className="block text-[#888888] text-xs font-medium uppercase tracking-wider mb-2">
                       {t("contact.service")} *
                     </label>
                     <select
@@ -254,11 +254,11 @@ export default function ContactPage() {
                       onChange={handleChange}
                       className={`${inputClass} cursor-pointer`}
                     >
-                      <option value="" className="bg-[#0d0d0d]">
+                      <option value="" className="bg-white">
                         {t("contact.select")}
                       </option>
                       {services.map((s) => (
-                        <option key={s.en} value={s.en} className="bg-[#0d0d0d]">
+                        <option key={s.en} value={s.en} className="bg-white">
                           {lang === "ar" ? s.ar : s.en}
                         </option>
                       ))}
@@ -266,7 +266,7 @@ export default function ContactPage() {
                   </div>
 
                   <div>
-                    <label className="block text-white/40 text-xs font-medium uppercase tracking-wider mb-2">
+                    <label className="block text-[#888888] text-xs font-medium uppercase tracking-wider mb-2">
                       {t("contact.message")} *
                     </label>
                     <textarea
@@ -285,7 +285,7 @@ export default function ContactPage() {
                   </div>
 
                   {status === "error" && (
-                    <p className="text-red-400 text-sm">{t("contact.error")}</p>
+                    <p className="text-red-500 text-sm">{t("contact.error")}</p>
                   )}
 
                   <button
