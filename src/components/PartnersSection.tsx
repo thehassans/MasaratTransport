@@ -4,14 +4,10 @@ import Image from "next/image";
 import { useLang } from "@/context/LanguageContext";
 
 const partners = [
-  { name: "Partner 1", logo: "/images/partners/partner1.webp" },
-  { name: "Partner 2", logo: "/images/partners/partner2.webp" },
-  { name: "Partner 3", logo: "/images/partners/partner3.webp" },
-  { name: "Partner 4", logo: "/images/partners/partner4.webp" },
-  { name: "Partner 5", logo: "/images/partners/partner5.webp" },
-  { name: "Partner 6", logo: "/images/partners/partner6.webp" },
-  { name: "Partner 7", logo: "/images/partners/partner7.webp" },
-  { name: "Partner 8", logo: "/images/partners/partner8.webp" },
+  { name: "UCIC", logo: "/images/partners/ucic.png" },
+  { name: "Al Jaber", logo: "/images/partners/al-jaber.png" },
+  { name: "Gulf Cartoon", logo: "/images/partners/gulfcartoon.png" },
+  { name: "Green Vision", logo: "/images/partners/greenvision.jpeg" },
 ];
 
 export default function PartnersSection() {

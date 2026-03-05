@@ -5,13 +5,13 @@ import { useLang } from "@/context/LanguageContext";
 
 const fleet = [
   {
-    image: "/images/fleet/vehicle1.webp",
+    image: "/images/fleet/fleet1.png",
     titleKey: "fleet.vehicle1",
     descKey: "fleet.vehicle1.desc",
     tag: "40T",
   },
   {
-    image: "/images/fleet/vehicle2.webp",
+    image: "/images/fleet/fleet2.png",
     titleKey: "fleet.vehicle2",
     descKey: "fleet.vehicle2.desc",
     tag: "EXPRESS",
