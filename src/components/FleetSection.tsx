@@ -18,20 +18,6 @@ const fleet = [
     descKey: "fleet.vehicle2.desc",
     tag: "EXPRESS",
   },
-  {
-    image: "/images/fleet/vehicle3.webp",
-    hasImage: false,
-    titleKey: "fleet.vehicle3",
-    descKey: "fleet.vehicle3.desc",
-    tag: "COLD CHAIN",
-  },
-  {
-    image: "/images/fleet/vehicle4.webp",
-    hasImage: false,
-    titleKey: "fleet.vehicle4",
-    descKey: "fleet.vehicle4.desc",
-    tag: "FLATBED",
-  },
 ];
 
 export default function FleetSection() {
