@@ -50,12 +50,6 @@ export default function PartnersSection() {
                   className="object-contain transition-all duration-300"
                   onError={() => {}}
                 />
-                {/* Fallback text */}
-                <div className="absolute inset-0 flex items-center justify-center">
-                  <span className="text-[#BBBBBB] text-xs font-semibold tracking-wider group-hover:text-[#888888] transition-colors duration-300">
-                    {partner.name}
-                  </span>
-                </div>
               </div>
             </div>
           ))}
