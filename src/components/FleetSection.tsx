@@ -77,26 +77,15 @@ export default function FleetSection() {
                   />
                 )}
                 {/* Placeholder shown when no image */}
-                <div className={`absolute inset-0 flex items-center justify-center bg-gradient-to-br from-[#F0EDE8] to-[#E8E4DC] ${vehicle.hasImage ? "hidden" : ""}`}>
-                  <div className="text-center">
-                    <div className="text-4xl mb-2">🚛</div>
-                    <div className="text-[#AAAAAA] text-xs">Image Coming Soon</div>
-                  </div>
-                </div>
+                {!vehicle.hasImage && (
+                  <div className="absolute inset-0 bg-gradient-to-br from-[#F0EDE8] to-[#E8E4DC]" />
+                )}
                 {/* Image overlay gradient */}
                 <div className="absolute inset-0 bg-gradient-to-t from-[#FAFAF8]/80 via-transparent to-transparent" />
                 {/* Tag */}
                 <div className="absolute top-3 right-3 px-2.5 py-1 bg-[#C9A84C] rounded-md text-[#050505] text-[10px] font-black tracking-widest">
                   {vehicle.tag}
                 </div>
-              </div>
-
-              {/* Content */}
-              <div className="p-5">
-                <h3 className="text-[#111111] font-bold text-base mb-1.5 group-hover:text-[#C9A84C] transition-colors duration-300">
-                  {t(vehicle.titleKey)}
-                </h3>
-                <p className="text-[#777777] text-sm leading-relaxed">{t(vehicle.descKey)}</p>
               </div>
 
               {/* Bottom gold line */}
