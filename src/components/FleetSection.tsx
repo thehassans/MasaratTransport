@@ -6,24 +6,28 @@ import { useLang } from "@/context/LanguageContext";
 const fleet = [
   {
     image: "/images/fleet/fleet1.png",
+    hasImage: true,
     titleKey: "fleet.vehicle1",
     descKey: "fleet.vehicle1.desc",
     tag: "40T",
   },
   {
     image: "/images/fleet/fleet2.png",
+    hasImage: true,
     titleKey: "fleet.vehicle2",
     descKey: "fleet.vehicle2.desc",
     tag: "EXPRESS",
   },
   {
     image: "/images/fleet/vehicle3.webp",
+    hasImage: false,
     titleKey: "fleet.vehicle3",
     descKey: "fleet.vehicle3.desc",
     tag: "COLD CHAIN",
   },
   {
     image: "/images/fleet/vehicle4.webp",
+    hasImage: false,
     titleKey: "fleet.vehicle4",
     descKey: "fleet.vehicle4.desc",
     tag: "FLATBED",
@@ -64,15 +68,16 @@ export default function FleetSection() {
             >
               {/* Image container */}
               <div className="relative h-52 overflow-hidden bg-[#F0EDE8]">
-                <Image
-                  src={vehicle.image}
-                  alt={t(vehicle.titleKey)}
-                  fill
-                  className="object-cover group-hover:scale-105 transition-transform duration-700"
-                  onError={() => {}}
-                />
+                {vehicle.hasImage && (
+                  <Image
+                    src={vehicle.image}
+                    alt={t(vehicle.titleKey)}
+                    fill
+                    className="object-cover group-hover:scale-105 transition-transform duration-700 z-10"
+                  />
+                )}
                 {/* Placeholder shown when no image */}
-                <div className="absolute inset-0 flex items-center justify-center bg-gradient-to-br from-[#F0EDE8] to-[#E8E4DC]">
+                <div className={`absolute inset-0 flex items-center justify-center bg-gradient-to-br from-[#F0EDE8] to-[#E8E4DC] ${vehicle.hasImage ? "hidden" : ""}`}>
                   <div className="text-center">
                     <div className="text-4xl mb-2">🚛</div>
                     <div className="text-[#AAAAAA] text-xs">Image Coming Soon</div>

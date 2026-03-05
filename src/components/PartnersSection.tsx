@@ -37,7 +37,7 @@ export default function PartnersSection() {
 
         {/* Marquee track */}
         <div className="flex gap-6 partners-marquee">
-          {[...partners, ...partners].map((partner, i) => (
+          {[...partners, ...partners, ...partners].map((partner, i) => (
             <div
               key={i}
               className="flex-shrink-0 w-48 h-24 rounded-xl border border-[#E8E3DB] bg-white hover:border-[#C9A84C]/40 hover:shadow-sm transition-all duration-300 flex items-center justify-center px-6 group"
@@ -47,7 +47,7 @@ export default function PartnersSection() {
                   src={partner.logo}
                   alt={partner.name}
                   fill
-                  className="object-contain filter grayscale group-hover:grayscale-0 opacity-50 group-hover:opacity-90 transition-all duration-300"
+                  className="object-contain transition-all duration-300"
                   onError={() => {}}
                 />
                 {/* Fallback text */}
