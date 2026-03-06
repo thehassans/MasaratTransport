@@ -151,6 +151,7 @@ export default function Footer() {
                 { label: t("footer.careers"), href: "/contact" },
                 { label: t("footer.news"), href: "/" },
                 { label: t("nav.contact"), href: "/contact" },
+                { label: lang === "ar" ? "وثائق الشركة" : "Documents", href: "/documents" },
               ].map((item) => (
                 <li key={item.label}>
                   <Link
@@ -174,53 +175,49 @@ export default function Footer() {
             <ul className="space-y-4">
               <li>
                 <a
-                  href="tel:+966534454300"
+                  href="tel:+966592727115"
                   className="flex items-start gap-3 text-[#555555] hover:text-[#C9A84C] transition-colors duration-200 group"
                 >
                   <div className="w-8 h-8 rounded-lg bg-[#C9A84C]/10 group-hover:bg-[#C9A84C]/20 flex items-center justify-center flex-shrink-0 transition-colors duration-300">
                     <Phone className="w-4 h-4 text-[#C9A84C]" />
                   </div>
-                  <span className="text-sm pt-1.5">+966 53 445 4300</span>
+                  <span className="text-sm pt-1.5">+966 59 272 7115</span>
                 </a>
               </li>
-              {settings?.phone && settings.phone !== "+966534454300" && (
-                <li>
-                  <a
-                    href={`tel:${settings.phone}`}
-                    className="flex items-start gap-3 text-[#555555] hover:text-[#C9A84C] transition-colors duration-200 group"
-                  >
-                    <div className="w-8 h-8 rounded-lg bg-[#C9A84C]/10 group-hover:bg-[#C9A84C]/20 flex items-center justify-center flex-shrink-0 transition-colors duration-300">
-                      <Phone className="w-4 h-4 text-[#C9A84C]" />
-                    </div>
-                    <span className="text-sm pt-1.5">{settings.phone}</span>
-                  </a>
-                </li>
-              )}
-              {settings?.email && (
-                <li>
-                  <a
-                    href={`mailto:${settings.email}`}
-                    className="flex items-start gap-3 text-[#555555] hover:text-[#C9A84C] transition-colors duration-200 group"
-                  >
-                    <div className="w-8 h-8 rounded-lg bg-[#C9A84C]/10 group-hover:bg-[#C9A84C]/20 flex items-center justify-center flex-shrink-0 transition-colors duration-300">
-                      <Mail className="w-4 h-4 text-[#C9A84C]" />
-                    </div>
-                    <span className="text-sm pt-1.5 break-all">{settings.email}</span>
-                  </a>
-                </li>
-              )}
-              {settings?.address && (
-                <li>
-                  <div className="flex items-start gap-3 text-[#555555]">
-                    <div className="w-8 h-8 rounded-lg bg-[#C9A84C]/10 flex items-center justify-center flex-shrink-0">
-                      <MapPin className="w-4 h-4 text-[#C9A84C]" />
-                    </div>
-                    <span className="text-sm pt-1.5">
-                      {lang === "ar" ? settings.addressAr : settings.address}
-                    </span>
+              <li>
+                <a
+                  href="tel:+966555485326"
+                  className="flex items-start gap-3 text-[#555555] hover:text-[#C9A84C] transition-colors duration-200 group"
+                >
+                  <div className="w-8 h-8 rounded-lg bg-[#C9A84C]/10 group-hover:bg-[#C9A84C]/20 flex items-center justify-center flex-shrink-0 transition-colors duration-300">
+                    <Phone className="w-4 h-4 text-[#C9A84C]" />
                   </div>
-                </li>
-              )}
+                  <span className="text-sm pt-1.5">+966 55 548 5326</span>
+                </a>
+              </li>
+              <li>
+                <a
+                  href="mailto:sales@masarattransport.com"
+                  className="flex items-start gap-3 text-[#555555] hover:text-[#C9A84C] transition-colors duration-200 group"
+                >
+                  <div className="w-8 h-8 rounded-lg bg-[#C9A84C]/10 group-hover:bg-[#C9A84C]/20 flex items-center justify-center flex-shrink-0 transition-colors duration-300">
+                    <Mail className="w-4 h-4 text-[#C9A84C]" />
+                  </div>
+                  <span className="text-sm pt-1.5 break-all">sales@masarattransport.com</span>
+                </a>
+              </li>
+              <li>
+                <div className="flex items-start gap-3 text-[#555555]">
+                  <div className="w-8 h-8 rounded-lg bg-[#C9A84C]/10 flex items-center justify-center flex-shrink-0 mt-0.5">
+                    <MapPin className="w-4 h-4 text-[#C9A84C]" />
+                  </div>
+                  <span className="text-sm leading-relaxed">
+                    {lang === "ar"
+                      ? "مبنى رقم 8774، شارع الأمير عبدالعزيز بن مساعد بن جلوي، رقم فرعي 2949، حي السليمانية، الرمز البريدي 12234"
+                      : "Building No 8774, Prince Abdulaziz Ibn Mussaed Ibn Jalawi, Secondary No 2949, Al Sulaimaniyah Dist., Postal Code 12234"}
+                  </span>
+                </div>
+              </li>
             </ul>
           </div>
         </div>

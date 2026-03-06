@@ -58,7 +58,7 @@ export default function CTASection() {
             <div className="absolute inset-0 bg-white/20 translate-x-full group-hover:translate-x-0 transition-transform duration-500" />
           </Link>
           <a
-            href="tel:+966534454300"
+            href="tel:+966592727115"
             className="inline-flex items-center gap-3 px-8 py-4 rounded-full border border-[#E8E3DB] bg-white text-[#333333] font-semibold text-sm tracking-wide hover:border-[#C9A84C]/50 hover:bg-[#FAFAF8] transition-all duration-300 shadow-sm"
           >
             <Phone size={16} className="text-[#C9A84C]" />

@@ -7,9 +7,9 @@ import { useLang } from "@/context/LanguageContext";
 
 const stats = [
   { key: "hero.stat1", value: "50K+", delay: 0 },
-  { key: "hero.stat2", value: "120+", delay: 100 },
-  { key: "hero.stat3", value: "500+", delay: 200 },
-  { key: "hero.stat4", value: "15+", delay: 300 },
+  { key: "hero.stat2", value: "50+", delay: 100 },
+  { key: "hero.stat3", value: "100+", delay: 200 },
+  { key: "hero.stat4", value: "10+", delay: 300 },
 ];
 
 export default function HeroSection() {

@@ -42,7 +42,7 @@ export default function PartnersSection() {
               key={i}
               className="flex-shrink-0 w-48 h-24 rounded-xl border border-[#E8E3DB] bg-white hover:border-[#C9A84C]/40 hover:shadow-sm transition-all duration-300 flex items-center justify-center px-6 group"
             >
-              <div className="relative w-full h-10">
+              <div className="relative w-full h-20">
                 <Image
                   src={partner.logo}
                   alt={partner.name}
