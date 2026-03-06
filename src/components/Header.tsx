@@ -37,13 +37,13 @@ export default function Header() {
         <div className="flex items-center justify-between h-20">
           {/* Logo */}
           <Link href="/" className="flex items-center gap-2 group">
-            <div className="relative h-12 w-auto">
+            <div className="relative h-[72px] w-auto">
               <Image
                 src="/images/masarat-logo.png"
                 alt="Masarat Transportation"
-                width={120}
-                height={48}
-                className="h-12 w-auto object-contain transition-opacity duration-300 group-hover:opacity-80"
+                width={180}
+                height={72}
+                className="h-[72px] w-auto object-contain transition-opacity duration-300 group-hover:opacity-80"
                 priority
               />
             </div>

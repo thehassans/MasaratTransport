@@ -85,49 +85,73 @@ export default function ContactPage() {
         <div className="grid grid-cols-1 lg:grid-cols-5 gap-8">
           {/* Info Cards */}
           <div className="lg:col-span-2 flex flex-col gap-4">
-            {[
-              {
-                icon: Phone,
-                label: lang === "ar" ? "اتصل بنا" : "Call Us",
-                value: "+966 53 445 4300",
-                href: "tel:+966534454300",
-                sub: lang === "ar" ? "متاح 24/7" : "Available 24/7",
-              },
-              {
-                icon: Mail,
-                label: lang === "ar" ? "راسلنا" : "Email Us",
-                value: "info@masarat.sa",
-                href: "mailto:info@masarat.sa",
-                sub: lang === "ar" ? "نرد خلال ساعة" : "We reply within 1 hour",
-              },
-              {
-                icon: MapPin,
-                label: lang === "ar" ? "موقعنا" : "Our Location",
-                value: lang === "ar" ? "الرياض، المملكة العربية السعودية" : "Riyadh, Saudi Arabia",
-                href: "#",
-                sub: lang === "ar" ? "المقر الرئيسي" : "Headquarters",
-              },
-            ].map((item, i) => {
-              const Icon = item.icon;
-              return (
-                <a
-                  key={i}
-                  href={item.href}
-                  className="group flex items-start gap-4 p-5 rounded-2xl border border-[#E8E3DB] bg-white hover:border-[#C9A84C]/40 hover:shadow-sm transition-all duration-300"
-                >
-                  <div className="w-12 h-12 rounded-xl bg-[#C9A84C]/10 group-hover:bg-[#C9A84C]/20 flex items-center justify-center flex-shrink-0 transition-all duration-300 border border-[#C9A84C]/15">
-                    <Icon className="w-5 h-5 text-[#C9A84C]" />
-                  </div>
-                  <div>
-                    <div className="text-[#888888] text-xs font-medium uppercase tracking-wider mb-1">
-                      {item.label}
-                    </div>
-                    <div className="text-[#111111] font-semibold text-sm mb-0.5">{item.value}</div>
-                    <div className="text-[#AAAAAA] text-xs">{item.sub}</div>
-                  </div>
-                </a>
-              );
-            })}
+            {/* Phone 1 */}
+            <a
+              href="tel:+966555485326"
+              className="group flex items-start gap-4 p-5 rounded-2xl border border-[#E8E3DB] bg-white hover:border-[#C9A84C]/40 hover:shadow-sm transition-all duration-300"
+            >
+              <div className="w-12 h-12 rounded-xl bg-[#C9A84C]/10 group-hover:bg-[#C9A84C]/20 flex items-center justify-center flex-shrink-0 transition-all duration-300 border border-[#C9A84C]/15">
+                <Phone className="w-5 h-5 text-[#C9A84C]" />
+              </div>
+              <div>
+                <div className="text-[#888888] text-xs font-medium uppercase tracking-wider mb-1">
+                  {lang === "ar" ? "اتصل بنا" : "Call Us"}
+                </div>
+                <div className="text-[#111111] font-semibold text-sm mb-0.5">+966 55 548 5326</div>
+                <div className="text-[#AAAAAA] text-xs">{lang === "ar" ? "متاح 24/7" : "Available 24/7"}</div>
+              </div>
+            </a>
+
+            {/* Phone 2 */}
+            <a
+              href="tel:+966592727115"
+              className="group flex items-start gap-4 p-5 rounded-2xl border border-[#E8E3DB] bg-white hover:border-[#C9A84C]/40 hover:shadow-sm transition-all duration-300"
+            >
+              <div className="w-12 h-12 rounded-xl bg-[#C9A84C]/10 group-hover:bg-[#C9A84C]/20 flex items-center justify-center flex-shrink-0 transition-all duration-300 border border-[#C9A84C]/15">
+                <Phone className="w-5 h-5 text-[#C9A84C]" />
+              </div>
+              <div>
+                <div className="text-[#888888] text-xs font-medium uppercase tracking-wider mb-1">
+                  {lang === "ar" ? "اتصل بنا" : "Call Us"}
+                </div>
+                <div className="text-[#111111] font-semibold text-sm mb-0.5">+966 59 272 7115</div>
+                <div className="text-[#AAAAAA] text-xs">{lang === "ar" ? "متاح 24/7" : "Available 24/7"}</div>
+              </div>
+            </a>
+
+            {/* Email */}
+            <a
+              href="mailto:sales@masarattransport.com"
+              className="group flex items-start gap-4 p-5 rounded-2xl border border-[#E8E3DB] bg-white hover:border-[#C9A84C]/40 hover:shadow-sm transition-all duration-300"
+            >
+              <div className="w-12 h-12 rounded-xl bg-[#C9A84C]/10 group-hover:bg-[#C9A84C]/20 flex items-center justify-center flex-shrink-0 transition-all duration-300 border border-[#C9A84C]/15">
+                <Mail className="w-5 h-5 text-[#C9A84C]" />
+              </div>
+              <div>
+                <div className="text-[#888888] text-xs font-medium uppercase tracking-wider mb-1">
+                  {lang === "ar" ? "راسلنا" : "Email Us"}
+                </div>
+                <div className="text-[#111111] font-semibold text-sm mb-0.5">sales@masarattransport.com</div>
+                <div className="text-[#AAAAAA] text-xs">{lang === "ar" ? "نرد خلال ساعة" : "We reply within 1 hour"}</div>
+              </div>
+            </a>
+
+            {/* Address */}
+            <div className="group flex items-start gap-4 p-5 rounded-2xl border border-[#E8E3DB] bg-white">
+              <div className="w-12 h-12 rounded-xl bg-[#C9A84C]/10 flex items-center justify-center flex-shrink-0 border border-[#C9A84C]/15">
+                <MapPin className="w-5 h-5 text-[#C9A84C]" />
+              </div>
+              <div>
+                <div className="text-[#888888] text-xs font-medium uppercase tracking-wider mb-1">
+                  {lang === "ar" ? "موقعنا" : "Our Location"}
+                </div>
+                <div className="text-[#111111] font-semibold text-sm leading-relaxed">
+                  {lang === "ar"
+                    ? "مبنى رقم 8774، شارع الأمير عبدالعزيز بن مساعد بن جلوي، رقم فرعي 2949، حي السليمانية، الرمز البريدي 12234، الرياض، المملكة العربية السعودية"
+                    : "Building No 8774, Prince Abdulaziz Ibn Mussaed Ibn Jalawi, Secondary No 2949, Al Sulaimaniyah Dist., Postal Code 12234, Riyadh, Kingdom of Saudi Arabia"}
+                </div>
+              </div>
+            </div>
 
             {/* Decorative card */}
             <div className="flex-1 rounded-2xl border border-[#C9A84C]/20 bg-gradient-to-br from-[#C9A84C]/6 to-[#FAFAF8] p-6 mt-2">

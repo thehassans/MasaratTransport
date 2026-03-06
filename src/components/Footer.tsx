@@ -175,17 +175,6 @@ export default function Footer() {
             <ul className="space-y-4">
               <li>
                 <a
-                  href="tel:+966592727115"
-                  className="flex items-start gap-3 text-[#555555] hover:text-[#C9A84C] transition-colors duration-200 group"
-                >
-                  <div className="w-8 h-8 rounded-lg bg-[#C9A84C]/10 group-hover:bg-[#C9A84C]/20 flex items-center justify-center flex-shrink-0 transition-colors duration-300">
-                    <Phone className="w-4 h-4 text-[#C9A84C]" />
-                  </div>
-                  <span className="text-sm pt-1.5">+966 59 272 7115</span>
-                </a>
-              </li>
-              <li>
-                <a
                   href="tel:+966555485326"
                   className="flex items-start gap-3 text-[#555555] hover:text-[#C9A84C] transition-colors duration-200 group"
                 >
@@ -193,6 +182,17 @@ export default function Footer() {
                     <Phone className="w-4 h-4 text-[#C9A84C]" />
                   </div>
                   <span className="text-sm pt-1.5">+966 55 548 5326</span>
+                </a>
+              </li>
+              <li>
+                <a
+                  href="tel:+966592727115"
+                  className="flex items-start gap-3 text-[#555555] hover:text-[#C9A84C] transition-colors duration-200 group"
+                >
+                  <div className="w-8 h-8 rounded-lg bg-[#C9A84C]/10 group-hover:bg-[#C9A84C]/20 flex items-center justify-center flex-shrink-0 transition-colors duration-300">
+                    <Phone className="w-4 h-4 text-[#C9A84C]" />
+                  </div>
+                  <span className="text-sm pt-1.5">+966 59 272 7115</span>
                 </a>
               </li>
               <li>
@@ -213,8 +213,8 @@ export default function Footer() {
                   </div>
                   <span className="text-sm leading-relaxed">
                     {lang === "ar"
-                      ? "مبنى رقم 8774، شارع الأمير عبدالعزيز بن مساعد بن جلوي، رقم فرعي 2949، حي السليمانية، الرمز البريدي 12234"
-                      : "Building No 8774, Prince Abdulaziz Ibn Mussaed Ibn Jalawi, Secondary No 2949, Al Sulaimaniyah Dist., Postal Code 12234"}
+                      ? "مبنى رقم 8774، شارع الأمير عبدالعزيز بن مساعد بن جلوي، رقم فرعي 2949، حي السليمانية، الرمز البريدي 12234، الرياض، المملكة العربية السعودية"
+                      : "Building No 8774, Prince Abdulaziz Ibn Mussaed Ibn Jalawi, Secondary No 2949, Al Sulaimaniyah Dist., Postal Code 12234, Riyadh, Kingdom of Saudi Arabia"}
                   </span>
                 </div>
               </li>
