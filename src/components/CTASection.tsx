@@ -1,7 +1,8 @@
 "use client";
 
 import Link from "next/link";
-import { ArrowRight, Phone } from "lucide-react";
+import Image from "next/image";
+import { ArrowRight, Phone, FileText, Shield, MapPin } from "lucide-react";
 import { useLang } from "@/context/LanguageContext";
 
 export default function CTASection() {
@@ -64,6 +65,51 @@ export default function CTASection() {
             <Phone size={16} className="text-[#C9A84C]" />
             <span>{lang === "ar" ? "اتصل بنا" : "Call Us Now"}</span>
           </a>
+        </div>
+
+        {/* Documents strip */}
+        <div className="mt-16 pt-12 border-t border-[#E8E3DB]/60">
+          <p className="text-[#AAAAAA] text-xs font-semibold tracking-[0.2em] uppercase mb-6">
+            {lang === "ar" ? "وثائق معتمدة" : "Verified Business Documents"}
+          </p>
+          <div className="flex flex-wrap justify-center gap-4">
+            {[
+              { img: "/images/documents/logistics-register-1.jpg", icon: <FileText className="w-3.5 h-3.5" />, label: lang === "ar" ? "سجل اللوجستيه 1" : "Logistics Register 1" },
+              { img: "/images/documents/logistics-register-2.jpg", icon: <FileText className="w-3.5 h-3.5" />, label: lang === "ar" ? "سجل اللوجستيه 2" : "Logistics Register 2" },
+              { img: "/images/documents/logistics-register-3.jpg", icon: <FileText className="w-3.5 h-3.5" />, label: lang === "ar" ? "سجل اللوجستيه 3" : "Logistics Register 3" },
+              { img: "/images/documents/license-1.jpg", icon: <Shield className="w-3.5 h-3.5" />, label: lang === "ar" ? "الترخيص التجاري" : "Business License" },
+              { img: "/images/documents/national-address.png", icon: <MapPin className="w-3.5 h-3.5" />, label: lang === "ar" ? "العنوان الوطني" : "National Address" },
+            ].map((doc, i) => (
+              <Link
+                key={i}
+                href="/documents"
+                className="group flex flex-col items-center gap-2 cursor-pointer"
+              >
+                <div className="relative w-20 h-24 rounded-xl overflow-hidden border border-[#E8E3DB] bg-white group-hover:border-[#C9A84C]/40 group-hover:shadow-lg group-hover:shadow-[#C9A84C]/10 transition-all duration-300">
+                  <Image
+                    src={doc.img}
+                    alt={doc.label}
+                    fill
+                    className="object-contain p-1.5 group-hover:scale-105 transition-transform duration-400"
+                  />
+                  <div className="absolute inset-0 bg-[#C9A84C]/0 group-hover:bg-[#C9A84C]/5 transition-all duration-300" />
+                </div>
+                <span className="flex items-center gap-1 text-[#AAAAAA] group-hover:text-[#C9A84C] text-[10px] font-medium transition-colors duration-300">
+                  {doc.icon}
+                  {doc.label}
+                </span>
+              </Link>
+            ))}
+          </div>
+          <div className="mt-6">
+            <Link
+              href="/documents"
+              className="inline-flex items-center gap-2 text-[#C9A84C] text-sm font-semibold hover:underline underline-offset-4 transition-all duration-200"
+            >
+              {lang === "ar" ? "عرض جميع الوثائق" : "View all documents"}
+              <ArrowRight size={14} className={lang === "ar" ? "rotate-180" : ""} />
+            </Link>
+          </div>
         </div>
       </div>
     </section>
