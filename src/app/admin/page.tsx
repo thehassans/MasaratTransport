@@ -1,10 +1,12 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import Image from "next/image";
 import {
   LogOut, Users, Settings, Eye, Trash2, CheckCircle,
   MessageSquare, Phone, Mail, Building2, Calendar,
   Save, Instagram, Facebook, ToggleLeft, ToggleRight, Shield,
+  Truck, Video, Upload, Plus, X, AlertCircle, Loader2,
 } from "lucide-react";
 
 interface Contact {
@@ -23,6 +25,13 @@ interface SocialLink {
   platform: string;
   url: string;
   enabled: boolean;
+}
+
+interface FleetItem {
+  id: string;
+  filename: string;
+  tag: string;
+  uploadedAt: string;
 }
 
 interface SiteSettings {
@@ -78,12 +87,24 @@ export default function AdminPage() {
   const [authed, setAuthed] = useState(false);
   const [password, setPassword] = useState("");
   const [loginError, setLoginError] = useState("");
-  const [activeTab, setActiveTab] = useState<"contacts" | "settings">("contacts");
+  const [activeTab, setActiveTab] = useState<"contacts" | "settings" | "fleet" | "banner">("contacts");
   const [contacts, setContacts] = useState<Contact[]>([]);
   const [settings, setSettings] = useState<SiteSettings | null>(null);
   const [selectedContact, setSelectedContact] = useState<Contact | null>(null);
   const [settingsSaved, setSettingsSaved] = useState(false);
   const [saving, setSaving] = useState(false);
+
+  // Fleet state
+  const [fleetItems, setFleetItems] = useState<FleetItem[]>([]);
+  const [fleetTag, setFleetTag] = useState("");
+  const [fleetFile, setFleetFile] = useState<File | null>(null);
+  const [fleetUploading, setFleetUploading] = useState(false);
+  const [fleetMsg, setFleetMsg] = useState<{ type: "success" | "error"; text: string } | null>(null);
+
+  // Banner state
+  const [bannerFile, setBannerFile] = useState<File | null>(null);
+  const [bannerUploading, setBannerUploading] = useState(false);
+  const [bannerMsg, setBannerMsg] = useState<{ type: "success" | "error"; text: string } | null>(null);
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -97,9 +118,76 @@ export default function AdminPage() {
   };
 
   const loadData = async () => {
-    const [cRes, sRes] = await Promise.all([fetch("/api/contact"), fetch("/api/settings")]);
+    const [cRes, sRes, fRes] = await Promise.all([
+      fetch("/api/contact"),
+      fetch("/api/settings"),
+      fetch("/api/fleet"),
+    ]);
     if (cRes.ok) setContacts(await cRes.json());
     if (sRes.ok) setSettings(await sRes.json());
+    if (fRes.ok) setFleetItems(await fRes.json());
+  };
+
+  const uploadFleetCar = async () => {
+    if (!fleetFile || !fleetTag.trim()) {
+      setFleetMsg({ type: "error", text: "Please select an image and enter a tag (e.g. 40T)." });
+      return;
+    }
+    setFleetUploading(true);
+    setFleetMsg(null);
+    try {
+      const fd = new FormData();
+      fd.append("image", fleetFile);
+      fd.append("tag", fleetTag.trim());
+      const res = await fetch("/api/admin/fleet", { method: "POST", body: fd });
+      const data = await res.json();
+      if (res.ok) {
+        setFleetItems((p) => [...p, data.item]);
+        setFleetFile(null);
+        setFleetTag("");
+        setFleetMsg({ type: "success", text: "Fleet car added and converted to WebP!" });
+      } else {
+        setFleetMsg({ type: "error", text: data.error || "Upload failed." });
+      }
+    } catch {
+      setFleetMsg({ type: "error", text: "Network error. Please try again." });
+    } finally {
+      setFleetUploading(false);
+    }
+  };
+
+  const deleteFleetCar = async (id: string) => {
+    const res = await fetch("/api/admin/fleet", {
+      method: "DELETE",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ id }),
+    });
+    if (res.ok) setFleetItems((p) => p.filter((f) => f.id !== id));
+  };
+
+  const uploadBannerVideo = async () => {
+    if (!bannerFile) {
+      setBannerMsg({ type: "error", text: "Please select a video file." });
+      return;
+    }
+    setBannerUploading(true);
+    setBannerMsg(null);
+    try {
+      const fd = new FormData();
+      fd.append("video", bannerFile);
+      const res = await fetch("/api/admin/banner", { method: "POST", body: fd });
+      const data = await res.json();
+      if (res.ok) {
+        setBannerFile(null);
+        setBannerMsg({ type: "success", text: data.message || "Banner video updated!" });
+      } else {
+        setBannerMsg({ type: "error", text: data.error || "Upload failed." });
+      }
+    } catch {
+      setBannerMsg({ type: "error", text: "Network error. Please try again." });
+    } finally {
+      setBannerUploading(false);
+    }
   };
 
   useEffect(() => { if (authed) loadData(); }, [authed]);
@@ -202,6 +290,8 @@ export default function AdminPage() {
           {[
             { id: "contacts" as const, icon: Users, label: "Contact Submissions", badge: contacts.filter((c) => c.status === "new").length },
             { id: "settings" as const, icon: Settings, label: "Site Settings", badge: 0 },
+            { id: "fleet" as const, icon: Truck, label: "Fleet Management", badge: 0 },
+            { id: "banner" as const, icon: Video, label: "Banner Video", badge: 0 },
           ].map((item) => {
             const Icon = item.icon;
             return (
@@ -391,6 +481,192 @@ export default function AdminPage() {
                         className="w-full bg-white/[0.04] border border-white/10 rounded-lg px-3 py-2 text-white/60 placeholder-white/15 text-xs focus:outline-none focus:border-[#C9A84C]/30 transition-all disabled:opacity-40" />
                     </div>
                   ))}
+                </div>
+              </div>
+            </div>
+          </div>
+        )}
+
+        {/* FLEET TAB */}
+        {activeTab === "fleet" && (
+          <div>
+            <div className="mb-8">
+              <h1 className="text-2xl font-black mb-1">Fleet Management</h1>
+              <p className="text-white/30 text-sm">Upload fleet car images — automatically converted to WebP</p>
+            </div>
+
+            {/* Upload Form */}
+            <div className="bg-white/[0.02] border border-white/[0.06] rounded-2xl p-6 mb-6">
+              <h3 className="text-white font-semibold text-sm mb-5 flex items-center gap-2">
+                <Plus className="w-4 h-4 text-[#C9A84C]" /> Add Fleet Car
+              </h3>
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 items-end">
+                <div>
+                  <label className="block text-white/30 text-xs uppercase tracking-wider mb-2">Tag (e.g. 40T, EXPRESS)</label>
+                  <input
+                    type="text"
+                    value={fleetTag}
+                    onChange={(e) => setFleetTag(e.target.value)}
+                    placeholder="40T"
+                    className={inputClass}
+                  />
+                </div>
+                <div>
+                  <label className="block text-white/30 text-xs uppercase tracking-wider mb-2">Car Image (JPG / PNG / WebP)</label>
+                  <label className="flex items-center gap-3 w-full bg-white/[0.04] border border-white/10 rounded-xl px-4 py-3 cursor-pointer hover:border-[#C9A84C]/40 transition-all duration-200">
+                    <Upload className="w-4 h-4 text-[#C9A84C] shrink-0" />
+                    <span className="text-sm text-white/40 truncate">
+                      {fleetFile ? fleetFile.name : "Choose image..."}
+                    </span>
+                    <input
+                      type="file"
+                      accept="image/*"
+                      className="hidden"
+                      onChange={(e) => setFleetFile(e.target.files?.[0] ?? null)}
+                    />
+                  </label>
+                </div>
+                <button
+                  onClick={uploadFleetCar}
+                  disabled={fleetUploading}
+                  className="flex items-center justify-center gap-2 py-3 rounded-xl bg-gradient-to-r from-[#C9A84C] to-[#E8C96A] text-[#050505] font-bold text-sm hover:shadow-lg transition-all duration-300 disabled:opacity-60"
+                >
+                  {fleetUploading ? <><Loader2 size={15} className="animate-spin" /> Converting...</> : <><Upload size={15} /> Upload & Convert</>}
+                </button>
+              </div>
+              {fleetMsg && (
+                <div className={`mt-4 flex items-center gap-2 px-4 py-3 rounded-xl text-sm ${fleetMsg.type === "success" ? "bg-green-500/10 border border-green-500/20 text-green-400" : "bg-red-500/10 border border-red-500/20 text-red-400"}`}>
+                  {fleetMsg.type === "success" ? <CheckCircle size={14} /> : <AlertCircle size={14} />}
+                  {fleetMsg.text}
+                </div>
+              )}
+            </div>
+
+            {/* Fleet Grid */}
+            <div className="bg-white/[0.02] border border-white/[0.06] rounded-2xl p-6">
+              <h3 className="text-white font-semibold text-sm mb-5 flex items-center gap-2">
+                <Truck className="w-4 h-4 text-[#C9A84C]" /> Current Fleet ({fleetItems.length} cars)
+              </h3>
+              {fleetItems.length === 0 ? (
+                <div className="text-center py-12 text-white/20">
+                  <Truck className="w-8 h-8 mx-auto mb-3 opacity-30" />
+                  <p>No fleet cars yet. Upload one above.</p>
+                </div>
+              ) : (
+                <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4">
+                  {fleetItems.map((item) => (
+                    <div key={item.id} className="group relative rounded-xl overflow-hidden border border-white/[0.06] bg-white/[0.03]">
+                      <div className="relative h-32 bg-white/[0.05]">
+                        <Image
+                          src={`/images/fleet/${item.filename}`}
+                          alt={item.tag}
+                          fill
+                          className="object-cover"
+                          onError={(e) => { (e.currentTarget as HTMLImageElement).style.opacity = "0.2"; }}
+                        />
+                        <div className="absolute top-2 left-2 px-2 py-0.5 bg-[#C9A84C] rounded text-[#050505] text-[9px] font-black tracking-widest">
+                          {item.tag}
+                        </div>
+                        <button
+                          onClick={() => deleteFleetCar(item.id)}
+                          className="absolute top-2 right-2 w-6 h-6 rounded-full bg-red-500/80 text-white flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-200 hover:bg-red-500"
+                        >
+                          <X size={10} />
+                        </button>
+                      </div>
+                      <div className="px-2 py-1.5">
+                        <p className="text-white/40 text-[10px] truncate">{item.filename}</p>
+                        <p className="text-white/20 text-[9px]">{item.uploadedAt ? new Date(item.uploadedAt).toLocaleDateString() : "Static"}</p>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              )}
+            </div>
+          </div>
+        )}
+
+        {/* BANNER VIDEO TAB */}
+        {activeTab === "banner" && (
+          <div>
+            <div className="mb-8">
+              <h1 className="text-2xl font-black mb-1">Banner Video</h1>
+              <p className="text-white/30 text-sm">Replace the hero background video — automatically converted to WebM (VP9)</p>
+            </div>
+
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+              {/* Current video preview */}
+              <div className="bg-white/[0.02] border border-white/[0.06] rounded-2xl p-6">
+                <h3 className="text-white font-semibold text-sm mb-4 flex items-center gap-2">
+                  <Video className="w-4 h-4 text-[#C9A84C]" /> Current Banner Video
+                </h3>
+                <div className="rounded-xl overflow-hidden border border-white/[0.06] bg-black/40">
+                  <video
+                    src="/videos/hero.webm"
+                    controls
+                    muted
+                    className="w-full max-h-52 object-cover"
+                    poster="/images/hero-poster.webp"
+                  />
+                </div>
+                <p className="text-white/25 text-xs mt-3">File: <span className="text-white/40 font-mono">public/videos/hero.webm</span></p>
+              </div>
+
+              {/* Upload form */}
+              <div className="bg-white/[0.02] border border-white/[0.06] rounded-2xl p-6">
+                <h3 className="text-white font-semibold text-sm mb-4 flex items-center gap-2">
+                  <Upload className="w-4 h-4 text-[#C9A84C]" /> Upload New Video
+                </h3>
+
+                <div className="space-y-4">
+                  <div className="p-3 rounded-xl border border-[#C9A84C]/20 bg-[#C9A84C]/5">
+                    <p className="text-[#C9A84C] text-xs font-semibold mb-1">Conversion Info</p>
+                    <ul className="text-white/40 text-xs space-y-0.5">
+                      <li>• Accepts: MP4, MOV, AVI, MKV, WebM</li>
+                      <li>• Output: WebM with VP9 + Opus audio</li>
+                      <li>• Also generates new hero poster (WebP)</li>
+                      <li>• Conversion may take 1–5 min for large files</li>
+                    </ul>
+                  </div>
+
+                  <div>
+                    <label className="block text-white/30 text-xs uppercase tracking-wider mb-2">Video File</label>
+                    <label className="flex items-center gap-3 w-full bg-white/[0.04] border border-white/10 rounded-xl px-4 py-3 cursor-pointer hover:border-[#C9A84C]/40 transition-all duration-200">
+                      <Video className="w-4 h-4 text-[#C9A84C] shrink-0" />
+                      <span className="text-sm text-white/40 truncate">
+                        {bannerFile ? bannerFile.name : "Choose video file..."}
+                      </span>
+                      <input
+                        type="file"
+                        accept="video/*"
+                        className="hidden"
+                        onChange={(e) => setBannerFile(e.target.files?.[0] ?? null)}
+                      />
+                    </label>
+                    {bannerFile && (
+                      <p className="text-white/30 text-xs mt-1.5">
+                        Size: {(bannerFile.size / 1024 / 1024).toFixed(1)} MB
+                      </p>
+                    )}
+                  </div>
+
+                  <button
+                    onClick={uploadBannerVideo}
+                    disabled={bannerUploading}
+                    className="w-full flex items-center justify-center gap-2 py-3.5 rounded-xl bg-gradient-to-r from-[#C9A84C] to-[#E8C96A] text-[#050505] font-bold text-sm hover:shadow-lg transition-all duration-300 disabled:opacity-60"
+                  >
+                    {bannerUploading
+                      ? <><Loader2 size={15} className="animate-spin" /> Converting to WebM... (please wait)</>
+                      : <><Upload size={15} /> Upload &amp; Convert to WebM</>
+                    }
+                  </button>
+
+                  {bannerMsg && (
+                    <div className={`flex items-start gap-2 px-4 py-3 rounded-xl text-sm ${bannerMsg.type === "success" ? "bg-green-500/10 border border-green-500/20 text-green-400" : "bg-red-500/10 border border-red-500/20 text-red-400"}`}>
+                      {bannerMsg.type === "success" ? <CheckCircle size={14} className="mt-0.5 shrink-0" /> : <AlertCircle size={14} className="mt-0.5 shrink-0" />}
+                      {bannerMsg.text}
+                    </div>
+                  )}
                 </div>
               </div>
             </div>

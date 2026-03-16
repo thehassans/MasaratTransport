@@ -1,27 +1,31 @@
 "use client";
 
 import Image from "next/image";
+import { useState, useEffect } from "react";
 import { useLang } from "@/context/LanguageContext";
 
-const fleet = [
-  {
-    image: "/images/fleet/fleet1.png",
-    hasImage: true,
-    titleKey: "fleet.vehicle1",
-    descKey: "fleet.vehicle1.desc",
-    tag: "40T",
-  },
-  {
-    image: "/images/fleet/fleet2.png",
-    hasImage: true,
-    titleKey: "fleet.vehicle2",
-    descKey: "fleet.vehicle2.desc",
-    tag: "EXPRESS",
-  },
+interface FleetItem {
+  id: string;
+  filename: string;
+  tag: string;
+  uploadedAt: string;
+}
+
+const STATIC_FALLBACK: FleetItem[] = [
+  { id: "fleet1", filename: "fleet1.png", tag: "40T", uploadedAt: "" },
+  { id: "fleet2", filename: "fleet2.png", tag: "EXPRESS", uploadedAt: "" },
 ];
 
 export default function FleetSection() {
   const { t } = useLang();
+  const [fleet, setFleet] = useState<FleetItem[]>(STATIC_FALLBACK);
+
+  useEffect(() => {
+    fetch("/api/fleet")
+      .then((r) => r.json())
+      .then((data: FleetItem[]) => { if (data.length > 0) setFleet(data); })
+      .catch(() => {});
+  }, []);
 
   return (
     <section id="fleet" className="relative py-24 sm:py-32 bg-[#FAFAF8] overflow-hidden">
@@ -47,29 +51,24 @@ export default function FleetSection() {
 
         {/* Fleet Grid */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-          {fleet.map((vehicle, i) => (
+          {fleet.map((vehicle) => (
             <div
-              key={i}
+              key={vehicle.id}
               className="group relative rounded-2xl overflow-hidden bg-white border border-[#E8E3DB] hover:border-[#C9A84C]/40 hover:shadow-lg hover:shadow-[#C9A84C]/8 transition-all duration-500 cursor-default"
             >
               {/* Image container */}
               <div className="relative h-52 overflow-hidden bg-[#F0EDE8]">
-                {vehicle.hasImage && (
-                  <Image
-                    src={vehicle.image}
-                    alt={t(vehicle.titleKey)}
-                    fill
-                    className="object-cover group-hover:scale-105 transition-transform duration-700 z-10"
-                  />
-                )}
-                {/* Placeholder shown when no image */}
-                {!vehicle.hasImage && (
-                  <div className="absolute inset-0 bg-gradient-to-br from-[#F0EDE8] to-[#E8E4DC]" />
-                )}
+                <Image
+                  src={`/images/fleet/${vehicle.filename}`}
+                  alt={vehicle.tag}
+                  fill
+                  className="object-cover group-hover:scale-105 transition-transform duration-700 z-10"
+                  onError={(e) => { (e.currentTarget as HTMLImageElement).style.display = "none"; }}
+                />
                 {/* Image overlay gradient */}
                 <div className="absolute inset-0 bg-gradient-to-t from-[#FAFAF8]/80 via-transparent to-transparent" />
                 {/* Tag */}
-                <div className="absolute top-3 right-3 px-2.5 py-1 bg-[#C9A84C] rounded-md text-[#050505] text-[10px] font-black tracking-widest">
+                <div className="absolute top-3 right-3 px-2.5 py-1 bg-[#C9A84C] rounded-md text-[#050505] text-[10px] font-black tracking-widest z-20">
                   {vehicle.tag}
                 </div>
               </div>
