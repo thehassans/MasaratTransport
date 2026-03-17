@@ -75,13 +75,13 @@ const platformLabels: Record<string, string> = {
   twitter: "X (Twitter)",
 };
 const statusColors = {
-  new: "bg-blue-500/10 text-blue-400 border-blue-500/20",
-  read: "bg-yellow-500/10 text-yellow-400 border-yellow-500/20",
-  replied: "bg-green-500/10 text-green-400 border-green-500/20",
+  new: "bg-blue-50 text-blue-600 border-blue-200",
+  read: "bg-amber-50 text-amber-600 border-amber-200",
+  replied: "bg-green-50 text-green-600 border-green-200",
 };
 
 const inputClass =
-  "w-full bg-white/[0.04] border border-white/10 rounded-xl px-4 py-3 text-white placeholder-white/20 focus:outline-none focus:border-[#C9A84C]/50 transition-all duration-300 text-sm";
+  "w-full bg-[#F4F2ED] border border-[#E0DBD3] rounded-xl px-4 py-3 text-[#111111] placeholder-[#BBBBBB] focus:outline-none focus:border-[#C9A84C]/60 focus:bg-white transition-all duration-300 text-sm";
 
 export default function AdminPage() {
   const [authed, setAuthed] = useState(false);
@@ -229,25 +229,25 @@ export default function AdminPage() {
 
   if (!authed) {
     return (
-      <div className="min-h-screen bg-[#050505] flex items-center justify-center px-4">
+      <div className="min-h-screen bg-[#F4F2ED] flex items-center justify-center px-4">
         <div className="absolute inset-0 pointer-events-none">
-          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-[#C9A84C]/5 rounded-full blur-[150px]" />
+          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-[#C9A84C]/8 rounded-full blur-[150px]" />
         </div>
         <div className="w-full max-w-md">
-          <div className="relative bg-white/[0.03] border border-white/[0.08] rounded-2xl p-8">
+          <div className="relative bg-white border border-[#E8E3DB] rounded-2xl p-8 shadow-sm">
             <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-[#C9A84C]/40 to-transparent rounded-t-2xl" />
             <div className="flex items-center gap-3 mb-8">
               <div className="w-10 h-10 rounded-xl bg-[#C9A84C]/10 border border-[#C9A84C]/20 flex items-center justify-center">
                 <Shield className="w-5 h-5 text-[#C9A84C]" />
               </div>
               <div>
-                <div className="text-white font-bold">Admin Panel</div>
-                <div className="text-white/30 text-xs">Masarat Transportation</div>
+                <div className="text-[#111111] font-bold">Admin Panel</div>
+                <div className="text-[#AAAAAA] text-xs">Masarat Transportation</div>
               </div>
             </div>
             <form onSubmit={handleLogin} className="space-y-4">
               <div>
-                <label className="block text-white/40 text-xs font-medium uppercase tracking-wider mb-2">Password</label>
+                <label className="block text-[#888888] text-xs font-medium uppercase tracking-wider mb-2">Password</label>
                 <input
                   type="password"
                   value={password}
@@ -256,7 +256,7 @@ export default function AdminPage() {
                   className={inputClass}
                   autoFocus
                 />
-                {loginError && <p className="text-red-400 text-xs mt-2">{loginError}</p>}
+                {loginError && <p className="text-red-500 text-xs mt-2">{loginError}</p>}
               </div>
               <button type="submit" className="w-full py-3.5 rounded-xl bg-gradient-to-r from-[#C9A84C] to-[#E8C96A] text-[#050505] font-bold text-sm hover:shadow-lg transition-all duration-300">
                 Access Admin Panel
@@ -269,10 +269,10 @@ export default function AdminPage() {
   }
 
   return (
-    <div className="min-h-screen bg-[#050505] text-white flex">
+    <div className="min-h-screen bg-[#F4F2ED] text-[#111111] flex">
       {/* Sidebar */}
-      <aside className="fixed top-0 left-0 bottom-0 w-60 bg-[#080808] border-r border-white/[0.06] flex flex-col z-40">
-        <div className="p-5 border-b border-white/[0.06]">
+      <aside className="fixed top-0 left-0 bottom-0 w-60 bg-white border-r border-[#E8E3DB] flex flex-col z-40 shadow-sm">
+        <div className="p-5 border-b border-[#E8E3DB]">
           <div className="flex items-center gap-2.5">
             <div className="relative w-9 h-9 shrink-0">
               <div className="absolute inset-0 bg-gradient-to-br from-[#C9A84C] to-[#8B6914] rounded-lg rotate-45" />
@@ -281,7 +281,7 @@ export default function AdminPage() {
               </div>
             </div>
             <div>
-              <div className="text-white font-bold text-sm">MASARAT</div>
+              <div className="text-[#111111] font-bold text-sm">MASARAT</div>
               <div className="text-[#C9A84C] text-[9px] tracking-widest">ADMIN PANEL</div>
             </div>
           </div>
@@ -297,7 +297,7 @@ export default function AdminPage() {
             return (
               <button key={item.id} onClick={() => setActiveTab(item.id)}
                 className={`w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium transition-all duration-200 ${
-                  activeTab === item.id ? "bg-[#C9A84C]/10 text-[#C9A84C] border border-[#C9A84C]/20" : "text-white/40 hover:text-white hover:bg-white/5"
+                  activeTab === item.id ? "bg-[#C9A84C]/10 text-[#C9A84C] border border-[#C9A84C]/20" : "text-[#888888] hover:text-[#111111] hover:bg-[#F4F2ED]"
                 }`}>
                 <Icon size={16} />
                 {item.label}
@@ -308,9 +308,9 @@ export default function AdminPage() {
             );
           })}
         </nav>
-        <div className="p-4 border-t border-white/[0.06]">
+        <div className="p-4 border-t border-[#E8E3DB]">
           <button onClick={async () => { await fetch("/api/admin/login", { method: "DELETE" }); setAuthed(false); }}
-            className="w-full flex items-center gap-2 px-3 py-2 rounded-xl text-white/40 hover:text-red-400 hover:bg-red-500/5 text-sm transition-all duration-200">
+            className="w-full flex items-center gap-2 px-3 py-2 rounded-xl text-[#AAAAAA] hover:text-red-500 hover:bg-red-50 text-sm transition-all duration-200">
             <LogOut size={15} /> Sign Out
           </button>
         </div>
@@ -322,14 +322,14 @@ export default function AdminPage() {
         {activeTab === "contacts" && (
           <div>
             <div className="mb-8">
-              <h1 className="text-2xl font-black mb-1">Contact Submissions</h1>
-              <p className="text-white/30 text-sm">{contacts.length} total submissions</p>
+              <h1 className="text-2xl font-black text-[#111111] mb-1">Contact Submissions</h1>
+              <p className="text-[#888888] text-sm">{contacts.length} total submissions</p>
             </div>
             <div className="grid grid-cols-1 lg:grid-cols-5 gap-6">
               <div className="lg:col-span-2 space-y-3 max-h-[75vh] overflow-y-auto pr-1">
                 {contacts.length === 0 ? (
-                  <div className="text-center py-16 text-white/20">
-                    <MessageSquare className="w-8 h-8 mx-auto mb-3 opacity-30" />
+                  <div className="text-center py-16 text-[#CCCCCC]">
+                    <MessageSquare className="w-8 h-8 mx-auto mb-3 opacity-40" />
                     <p>No submissions yet</p>
                   </div>
                 ) : contacts.map((c) => (
@@ -338,24 +338,24 @@ export default function AdminPage() {
                     className={`p-4 rounded-xl border cursor-pointer transition-all duration-200 ${
                       selectedContact?._id === c._id
                         ? "border-[#C9A84C]/40 bg-[#C9A84C]/5"
-                        : "border-white/[0.06] bg-white/[0.02] hover:border-white/10"
+                        : "border-[#E8E3DB] bg-white hover:border-[#C9A84C]/30 hover:shadow-sm"
                     }`}>
                     <div className="flex items-start justify-between gap-2 mb-1">
-                      <div className="font-semibold text-sm">{c.name}</div>
+                      <div className="font-semibold text-sm text-[#111111]">{c.name}</div>
                       <span className={`text-[10px] font-semibold px-2 py-0.5 rounded-full border ${statusColors[c.status]}`}>{c.status}</span>
                     </div>
-                    <div className="text-white/40 text-xs mb-0.5">{c.service}</div>
-                    <div className="text-white/25 text-xs">{new Date(c.createdAt).toLocaleDateString()}</div>
+                    <div className="text-[#888888] text-xs mb-0.5">{c.service}</div>
+                    <div className="text-[#AAAAAA] text-xs">{new Date(c.createdAt).toLocaleDateString()}</div>
                   </div>
                 ))}
               </div>
               <div className="lg:col-span-3">
                 {selectedContact ? (
-                  <div className="relative bg-white/[0.02] border border-white/[0.06] rounded-2xl p-6">
-                    <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-[#C9A84C]/20 to-transparent rounded-t-2xl" />
+                  <div className="relative bg-white border border-[#E8E3DB] rounded-2xl p-6 shadow-sm">
+                    <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-[#C9A84C]/30 to-transparent rounded-t-2xl" />
                     <div className="flex items-start justify-between mb-6">
                       <div>
-                        <h2 className="text-xl font-bold mb-1">{selectedContact.name}</h2>
+                        <h2 className="text-xl font-bold text-[#111111] mb-1">{selectedContact.name}</h2>
                         <span className={`text-xs font-semibold px-2.5 py-1 rounded-full border ${statusColors[selectedContact.status]}`}>{selectedContact.status}</span>
                       </div>
                       <div className="flex gap-2">
@@ -378,28 +378,28 @@ export default function AdminPage() {
                       ].map((item, i) => {
                         const Icon = item.icon;
                         return (
-                          <div key={i} className="bg-white/[0.03] rounded-xl p-3 border border-white/[0.06]">
+                          <div key={i} className="bg-[#F4F2ED] rounded-xl p-3 border border-[#E8E3DB]">
                             <div className="flex items-center gap-1.5 mb-1">
                               <Icon className="w-3 h-3 text-[#C9A84C]" />
-                              <span className="text-white/30 text-[10px] uppercase tracking-wider">{item.label}</span>
+                              <span className="text-[#AAAAAA] text-[10px] uppercase tracking-wider">{item.label}</span>
                             </div>
-                            <div className="text-white text-sm font-medium truncate">{item.value}</div>
+                            <div className="text-[#111111] text-sm font-medium truncate">{item.value}</div>
                           </div>
                         );
                       })}
                     </div>
                     <div className="mb-4">
-                      <div className="text-white/30 text-xs uppercase tracking-wider mb-2">Service</div>
+                      <div className="text-[#AAAAAA] text-xs uppercase tracking-wider mb-2">Service</div>
                       <span className="px-3 py-1 rounded-full bg-[#C9A84C]/10 border border-[#C9A84C]/20 text-[#C9A84C] text-sm font-medium">{selectedContact.service}</span>
                     </div>
                     <div>
-                      <div className="text-white/30 text-xs uppercase tracking-wider mb-2">Message</div>
-                      <div className="bg-white/[0.03] rounded-xl p-4 border border-white/[0.06] text-white/60 text-sm leading-relaxed">{selectedContact.message}</div>
+                      <div className="text-[#AAAAAA] text-xs uppercase tracking-wider mb-2">Message</div>
+                      <div className="bg-[#F4F2ED] rounded-xl p-4 border border-[#E8E3DB] text-[#555555] text-sm leading-relaxed">{selectedContact.message}</div>
                     </div>
                   </div>
                 ) : (
                   <div className="flex items-center justify-center py-24 text-center">
-                    <div><Eye className="w-8 h-8 text-white/10 mx-auto mb-3" /><p className="text-white/20 text-sm">Select a submission to view details</p></div>
+                    <div><Eye className="w-8 h-8 text-[#CCCCCC] mx-auto mb-3" /><p className="text-[#BBBBBB] text-sm">Select a submission to view details</p></div>
                   </div>
                 )}
               </div>
@@ -412,8 +412,8 @@ export default function AdminPage() {
           <div>
             <div className="flex items-center justify-between mb-8">
               <div>
-                <h1 className="text-2xl font-black mb-1">Site Settings</h1>
-                <p className="text-white/30 text-sm">Manage footer and contact information</p>
+                <h1 className="text-2xl font-black text-[#111111] mb-1">Site Settings</h1>
+                <p className="text-[#888888] text-sm">Manage footer and contact information</p>
               </div>
               <button onClick={saveSettings} disabled={saving}
                 className="flex items-center gap-2 px-5 py-2.5 rounded-xl bg-gradient-to-r from-[#C9A84C] to-[#E8C96A] text-[#050505] font-bold text-sm hover:shadow-lg transition-all duration-300 disabled:opacity-60">
@@ -422,8 +422,8 @@ export default function AdminPage() {
             </div>
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
               {/* Contact info */}
-              <div className="bg-white/[0.02] border border-white/[0.06] rounded-2xl p-6">
-                <h3 className="text-white font-semibold text-sm mb-5 flex items-center gap-2"><Phone className="w-4 h-4 text-[#C9A84C]" /> Contact Information</h3>
+              <div className="bg-white border border-[#E8E3DB] rounded-2xl p-6 shadow-sm">
+                <h3 className="text-[#111111] font-semibold text-sm mb-5 flex items-center gap-2"><Phone className="w-4 h-4 text-[#C9A84C]" /> Contact Information</h3>
                 <div className="space-y-4">
                   {[
                     { label: "Phone Number", key: "phone" as const, type: "text" },
@@ -432,7 +432,7 @@ export default function AdminPage() {
                     { label: "Address (Arabic)", key: "addressAr" as const, type: "text", rtl: true },
                   ].map((f) => (
                     <div key={f.key}>
-                      <label className="block text-white/30 text-xs uppercase tracking-wider mb-2">{f.label}</label>
+                      <label className="block text-[#888888] text-xs uppercase tracking-wider mb-2">{f.label}</label>
                       <input type={f.type} dir={f.rtl ? "rtl" : undefined} value={settings[f.key]}
                         onChange={(e) => setSettings((p) => p ? { ...p, [f.key]: e.target.value } : p)}
                         className={inputClass} />
@@ -441,17 +441,17 @@ export default function AdminPage() {
                 </div>
               </div>
               {/* Footer tagline */}
-              <div className="bg-white/[0.02] border border-white/[0.06] rounded-2xl p-6">
-                <h3 className="text-white font-semibold text-sm mb-5 flex items-center gap-2"><MessageSquare className="w-4 h-4 text-[#C9A84C]" /> Footer Tagline</h3>
+              <div className="bg-white border border-[#E8E3DB] rounded-2xl p-6 shadow-sm">
+                <h3 className="text-[#111111] font-semibold text-sm mb-5 flex items-center gap-2"><MessageSquare className="w-4 h-4 text-[#C9A84C]" /> Footer Tagline</h3>
                 <div className="space-y-4">
                   <div>
-                    <label className="block text-white/30 text-xs uppercase tracking-wider mb-2">Tagline (English)</label>
+                    <label className="block text-[#888888] text-xs uppercase tracking-wider mb-2">Tagline (English)</label>
                     <textarea rows={3} value={settings.footerTagline}
                       onChange={(e) => setSettings((p) => p ? { ...p, footerTagline: e.target.value } : p)}
                       className={`${inputClass} resize-none`} />
                   </div>
                   <div>
-                    <label className="block text-white/30 text-xs uppercase tracking-wider mb-2">Tagline (Arabic)</label>
+                    <label className="block text-[#888888] text-xs uppercase tracking-wider mb-2">Tagline (Arabic)</label>
                     <textarea rows={3} dir="rtl" value={settings.footerTaglineAr}
                       onChange={(e) => setSettings((p) => p ? { ...p, footerTaglineAr: e.target.value } : p)}
                       className={`${inputClass} resize-none`} />
@@ -459,26 +459,26 @@ export default function AdminPage() {
                 </div>
               </div>
               {/* Social links */}
-              <div className="lg:col-span-2 bg-white/[0.02] border border-white/[0.06] rounded-2xl p-6">
-                <h3 className="text-white font-semibold text-sm mb-5 flex items-center gap-2"><Instagram className="w-4 h-4 text-[#C9A84C]" /> Social Media Links</h3>
+              <div className="lg:col-span-2 bg-white border border-[#E8E3DB] rounded-2xl p-6 shadow-sm">
+                <h3 className="text-[#111111] font-semibold text-sm mb-5 flex items-center gap-2"><Instagram className="w-4 h-4 text-[#C9A84C]" /> Social Media Links</h3>
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
                   {settings.socialLinks.map((social) => (
                     <div key={social.platform}
-                      className={`p-4 rounded-xl border transition-all duration-200 ${social.enabled ? "border-white/10 bg-white/[0.02]" : "border-white/[0.04] opacity-50"}`}>
+                      className={`p-4 rounded-xl border transition-all duration-200 ${social.enabled ? "border-[#E8E3DB] bg-[#FAFAF8]" : "border-[#F0EDE8] bg-[#FAFAF8] opacity-50"}`}>
                       <div className="flex items-center justify-between mb-3">
                         <div className="flex items-center gap-2">
                           <span className="text-[#C9A84C]">{platformIcons[social.platform]}</span>
-                          <span className="text-white text-sm font-medium">{platformLabels[social.platform]}</span>
+                          <span className="text-[#111111] text-sm font-medium">{platformLabels[social.platform]}</span>
                         </div>
                         <button onClick={() => updateSocial(social.platform, "enabled", !social.enabled)}
-                          className="text-white/40 hover:text-[#C9A84C] transition-colors">
+                          className="text-[#BBBBBB] hover:text-[#C9A84C] transition-colors">
                           {social.enabled ? <ToggleRight className="w-5 h-5 text-[#C9A84C]" /> : <ToggleLeft className="w-5 h-5" />}
                         </button>
                       </div>
                       <input type="url" value={social.url} disabled={!social.enabled}
                         onChange={(e) => updateSocial(social.platform, "url", e.target.value)}
                         placeholder={`https://${social.platform}.com/...`}
-                        className="w-full bg-white/[0.04] border border-white/10 rounded-lg px-3 py-2 text-white/60 placeholder-white/15 text-xs focus:outline-none focus:border-[#C9A84C]/30 transition-all disabled:opacity-40" />
+                        className="w-full bg-[#F4F2ED] border border-[#E0DBD3] rounded-lg px-3 py-2 text-[#555555] placeholder-[#CCCCCC] text-xs focus:outline-none focus:border-[#C9A84C]/40 transition-all disabled:opacity-40" />
                     </div>
                   ))}
                 </div>
@@ -491,18 +491,18 @@ export default function AdminPage() {
         {activeTab === "fleet" && (
           <div>
             <div className="mb-8">
-              <h1 className="text-2xl font-black mb-1">Fleet Management</h1>
-              <p className="text-white/30 text-sm">Upload fleet car images — automatically converted to WebP</p>
+              <h1 className="text-2xl font-black text-[#111111] mb-1">Fleet Management</h1>
+              <p className="text-[#888888] text-sm">Upload fleet car images — automatically converted to WebP</p>
             </div>
 
             {/* Upload Form */}
-            <div className="bg-white/[0.02] border border-white/[0.06] rounded-2xl p-6 mb-6">
-              <h3 className="text-white font-semibold text-sm mb-5 flex items-center gap-2">
+            <div className="bg-white border border-[#E8E3DB] rounded-2xl p-6 mb-6 shadow-sm">
+              <h3 className="text-[#111111] font-semibold text-sm mb-5 flex items-center gap-2">
                 <Plus className="w-4 h-4 text-[#C9A84C]" /> Add Fleet Car
               </h3>
               <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 items-end">
                 <div>
-                  <label className="block text-white/30 text-xs uppercase tracking-wider mb-2">Tag (e.g. 40T, EXPRESS)</label>
+                  <label className="block text-[#888888] text-xs uppercase tracking-wider mb-2">Tag (e.g. 40T, EXPRESS)</label>
                   <input
                     type="text"
                     value={fleetTag}
@@ -512,10 +512,10 @@ export default function AdminPage() {
                   />
                 </div>
                 <div>
-                  <label className="block text-white/30 text-xs uppercase tracking-wider mb-2">Car Image (JPG / PNG / WebP)</label>
-                  <label className="flex items-center gap-3 w-full bg-white/[0.04] border border-white/10 rounded-xl px-4 py-3 cursor-pointer hover:border-[#C9A84C]/40 transition-all duration-200">
+                  <label className="block text-[#888888] text-xs uppercase tracking-wider mb-2">Car Image (JPG / PNG / WebP)</label>
+                  <label className="flex items-center gap-3 w-full bg-[#F4F2ED] border border-[#E0DBD3] rounded-xl px-4 py-3 cursor-pointer hover:border-[#C9A84C]/40 hover:bg-white transition-all duration-200">
                     <Upload className="w-4 h-4 text-[#C9A84C] shrink-0" />
-                    <span className="text-sm text-white/40 truncate">
+                    <span className="text-sm text-[#888888] truncate">
                       {fleetFile ? fleetFile.name : "Choose image..."}
                     </span>
                     <input
@@ -543,20 +543,20 @@ export default function AdminPage() {
             </div>
 
             {/* Fleet Grid */}
-            <div className="bg-white/[0.02] border border-white/[0.06] rounded-2xl p-6">
-              <h3 className="text-white font-semibold text-sm mb-5 flex items-center gap-2">
+            <div className="bg-white border border-[#E8E3DB] rounded-2xl p-6 shadow-sm">
+              <h3 className="text-[#111111] font-semibold text-sm mb-5 flex items-center gap-2">
                 <Truck className="w-4 h-4 text-[#C9A84C]" /> Current Fleet ({fleetItems.length} cars)
               </h3>
               {fleetItems.length === 0 ? (
-                <div className="text-center py-12 text-white/20">
-                  <Truck className="w-8 h-8 mx-auto mb-3 opacity-30" />
+                <div className="text-center py-12 text-[#CCCCCC]">
+                  <Truck className="w-8 h-8 mx-auto mb-3 opacity-40" />
                   <p>No fleet cars yet. Upload one above.</p>
                 </div>
               ) : (
                 <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4">
                   {fleetItems.map((item) => (
-                    <div key={item.id} className="group relative rounded-xl overflow-hidden border border-white/[0.06] bg-white/[0.03]">
-                      <div className="relative h-32 bg-white/[0.05]">
+                    <div key={item.id} className="group relative rounded-xl overflow-hidden border border-[#E8E3DB] bg-white">
+                      <div className="relative h-32 bg-[#F4F2ED]">
                         <Image
                           src={`/images/fleet/${item.filename}`}
                           alt={item.tag}
@@ -575,8 +575,8 @@ export default function AdminPage() {
                         </button>
                       </div>
                       <div className="px-2 py-1.5">
-                        <p className="text-white/40 text-[10px] truncate">{item.filename}</p>
-                        <p className="text-white/20 text-[9px]">{item.uploadedAt ? new Date(item.uploadedAt).toLocaleDateString() : "Static"}</p>
+                        <p className="text-[#888888] text-[10px] truncate">{item.filename}</p>
+                        <p className="text-[#BBBBBB] text-[9px]">{item.uploadedAt ? new Date(item.uploadedAt).toLocaleDateString() : "Static"}</p>
                       </div>
                     </div>
                   ))}
@@ -590,17 +590,17 @@ export default function AdminPage() {
         {activeTab === "banner" && (
           <div>
             <div className="mb-8">
-              <h1 className="text-2xl font-black mb-1">Banner Video</h1>
-              <p className="text-white/30 text-sm">Replace the hero background video — automatically converted to WebM (VP9)</p>
+              <h1 className="text-2xl font-black text-[#111111] mb-1">Banner Video</h1>
+              <p className="text-[#888888] text-sm">Replace the hero background video — automatically converted to WebM (VP9)</p>
             </div>
 
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
               {/* Current video preview */}
-              <div className="bg-white/[0.02] border border-white/[0.06] rounded-2xl p-6">
-                <h3 className="text-white font-semibold text-sm mb-4 flex items-center gap-2">
+              <div className="bg-white border border-[#E8E3DB] rounded-2xl p-6 shadow-sm">
+                <h3 className="text-[#111111] font-semibold text-sm mb-4 flex items-center gap-2">
                   <Video className="w-4 h-4 text-[#C9A84C]" /> Current Banner Video
                 </h3>
-                <div className="rounded-xl overflow-hidden border border-white/[0.06] bg-black/40">
+                <div className="rounded-xl overflow-hidden border border-[#E8E3DB] bg-[#F4F2ED]">
                   <video
                     src="/videos/hero.webm"
                     controls
@@ -609,19 +609,19 @@ export default function AdminPage() {
                     poster="/images/hero-poster.webp"
                   />
                 </div>
-                <p className="text-white/25 text-xs mt-3">File: <span className="text-white/40 font-mono">public/videos/hero.webm</span></p>
+                <p className="text-[#AAAAAA] text-xs mt-3">File: <span className="text-[#888888] font-mono">public/videos/hero.webm</span></p>
               </div>
 
               {/* Upload form */}
-              <div className="bg-white/[0.02] border border-white/[0.06] rounded-2xl p-6">
-                <h3 className="text-white font-semibold text-sm mb-4 flex items-center gap-2">
+              <div className="bg-white border border-[#E8E3DB] rounded-2xl p-6 shadow-sm">
+                <h3 className="text-[#111111] font-semibold text-sm mb-4 flex items-center gap-2">
                   <Upload className="w-4 h-4 text-[#C9A84C]" /> Upload New Video
                 </h3>
 
                 <div className="space-y-4">
                   <div className="p-3 rounded-xl border border-[#C9A84C]/20 bg-[#C9A84C]/5">
                     <p className="text-[#C9A84C] text-xs font-semibold mb-1">Conversion Info</p>
-                    <ul className="text-white/40 text-xs space-y-0.5">
+                    <ul className="text-[#888888] text-xs space-y-0.5">
                       <li>• Accepts: MP4, MOV, AVI, MKV, WebM</li>
                       <li>• Output: WebM with VP9 + Opus audio</li>
                       <li>• Also generates new hero poster (WebP)</li>
@@ -630,10 +630,10 @@ export default function AdminPage() {
                   </div>
 
                   <div>
-                    <label className="block text-white/30 text-xs uppercase tracking-wider mb-2">Video File</label>
-                    <label className="flex items-center gap-3 w-full bg-white/[0.04] border border-white/10 rounded-xl px-4 py-3 cursor-pointer hover:border-[#C9A84C]/40 transition-all duration-200">
+                    <label className="block text-[#888888] text-xs uppercase tracking-wider mb-2">Video File</label>
+                    <label className="flex items-center gap-3 w-full bg-[#F4F2ED] border border-[#E0DBD3] rounded-xl px-4 py-3 cursor-pointer hover:border-[#C9A84C]/40 hover:bg-white transition-all duration-200">
                       <Video className="w-4 h-4 text-[#C9A84C] shrink-0" />
-                      <span className="text-sm text-white/40 truncate">
+                      <span className="text-sm text-[#888888] truncate">
                         {bannerFile ? bannerFile.name : "Choose video file..."}
                       </span>
                       <input
@@ -644,7 +644,7 @@ export default function AdminPage() {
                       />
                     </label>
                     {bannerFile && (
-                      <p className="text-white/30 text-xs mt-1.5">
+                      <p className="text-[#AAAAAA] text-xs mt-1.5">
                         Size: {(bannerFile.size / 1024 / 1024).toFixed(1)} MB
                       </p>
                     )}
