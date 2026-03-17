@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { Instagram, Facebook, Phone, Mail, MapPin, Twitter } from "lucide-react";
+import { Instagram, Facebook, Phone, Mail, MapPin } from "lucide-react";
 import { useLang } from "@/context/LanguageContext";
 
 interface SocialLink {
@@ -13,7 +13,8 @@ interface SocialLink {
 }
 
 interface Settings {
-  phone: string;
+  phone1: string;
+  phone2: string;
   email: string;
   address: string;
   addressAr: string;
@@ -173,51 +174,57 @@ export default function Footer() {
               {t("footer.contact")}
             </h4>
             <ul className="space-y-4">
+              {settings?.phone1 && (
               <li>
                 <a
-                  href="tel:+966555485326"
+                  href={`tel:${settings.phone1.replace(/\s/g, "")}`}
                   className="flex items-start gap-3 text-[#555555] hover:text-[#C9A84C] transition-colors duration-200 group"
                 >
                   <div className="w-8 h-8 rounded-lg bg-[#C9A84C]/10 group-hover:bg-[#C9A84C]/20 flex items-center justify-center flex-shrink-0 transition-colors duration-300">
                     <Phone className="w-4 h-4 text-[#C9A84C]" />
                   </div>
-                  <span className="text-sm pt-1.5">+966 55 548 5326</span>
+                  <span className="text-sm pt-1.5">{settings.phone1}</span>
                 </a>
               </li>
+              )}
+              {settings?.phone2 && (
               <li>
                 <a
-                  href="tel:+966592727115"
+                  href={`tel:${settings.phone2.replace(/\s/g, "")}`}
                   className="flex items-start gap-3 text-[#555555] hover:text-[#C9A84C] transition-colors duration-200 group"
                 >
                   <div className="w-8 h-8 rounded-lg bg-[#C9A84C]/10 group-hover:bg-[#C9A84C]/20 flex items-center justify-center flex-shrink-0 transition-colors duration-300">
                     <Phone className="w-4 h-4 text-[#C9A84C]" />
                   </div>
-                  <span className="text-sm pt-1.5">+966 59 272 7115</span>
+                  <span className="text-sm pt-1.5">{settings.phone2}</span>
                 </a>
               </li>
+              )}
+              {settings?.email && (
               <li>
                 <a
-                  href="mailto:sales@masarattransport.com"
+                  href={`mailto:${settings.email}`}
                   className="flex items-start gap-3 text-[#555555] hover:text-[#C9A84C] transition-colors duration-200 group"
                 >
                   <div className="w-8 h-8 rounded-lg bg-[#C9A84C]/10 group-hover:bg-[#C9A84C]/20 flex items-center justify-center flex-shrink-0 transition-colors duration-300">
                     <Mail className="w-4 h-4 text-[#C9A84C]" />
                   </div>
-                  <span className="text-sm pt-1.5 break-all">sales@masarattransport.com</span>
+                  <span className="text-sm pt-1.5 break-all">{settings.email}</span>
                 </a>
               </li>
+              )}
+              {(settings?.address || settings?.addressAr) && (
               <li>
                 <div className="flex items-start gap-3 text-[#555555]">
                   <div className="w-8 h-8 rounded-lg bg-[#C9A84C]/10 flex items-center justify-center flex-shrink-0 mt-0.5">
                     <MapPin className="w-4 h-4 text-[#C9A84C]" />
                   </div>
                   <span className="text-sm leading-relaxed">
-                    {lang === "ar"
-                      ? "مبنى رقم 8774، شارع الأمير عبدالعزيز بن مساعد بن جلوي، رقم فرعي 2949، حي السليمانية، الرمز البريدي 12234، الرياض، المملكة العربية السعودية"
-                      : "Building No 8774, Prince Abdulaziz Ibn Mussaed Ibn Jalawi, Secondary No 2949, Al Sulaimaniyah Dist., Postal Code 12234, Riyadh, Kingdom of Saudi Arabia"}
+                    {lang === "ar" ? settings?.addressAr : settings?.address}
                   </span>
                 </div>
               </li>
+              )}
             </ul>
           </div>
         </div>

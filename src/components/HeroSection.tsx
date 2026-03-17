@@ -5,17 +5,31 @@ import Link from "next/link";
 import { ArrowRight, Play } from "lucide-react";
 import { useLang } from "@/context/LanguageContext";
 
-const stats = [
-  { key: "hero.stat1", value: "50K+", delay: 0 },
-  { key: "hero.stat2", value: "50+", delay: 100 },
-  { key: "hero.stat3", value: "100+", delay: 200 },
-  { key: "hero.stat4", value: "10+", delay: 300 },
-];
+interface SiteSettings {
+  heroTaglineEn: string;
+  heroTagline2En: string;
+  heroSubEn: string;
+  heroTaglineAr: string;
+  heroTagline2Ar: string;
+  heroSubAr: string;
+  statDeliveriesValue: string;
+  statCitiesValue: string;
+  statFleetValue: string;
+  statYearsValue: string;
+}
 
 export default function HeroSection() {
   const { t, lang } = useLang();
   const videoRef = useRef<HTMLVideoElement>(null);
   const [videoLoaded, setVideoLoaded] = useState(false);
+  const [cfg, setCfg] = useState<SiteSettings | null>(null);
+
+  useEffect(() => {
+    fetch("/api/settings")
+      .then((r) => r.json())
+      .then(setCfg)
+      .catch(() => {});
+  }, []);
 
   useEffect(() => {
     const video = videoRef.current;
@@ -84,16 +98,16 @@ export default function HeroSection() {
           {/* Headline */}
           <h1 className="font-black leading-[1.05] mb-6">
             <span className="block text-[#111111] text-5xl sm:text-6xl lg:text-7xl xl:text-8xl">
-              {t("hero.tagline")}
+              {cfg ? (lang === "ar" ? cfg.heroTaglineAr : cfg.heroTaglineEn) : t("hero.tagline")}
             </span>
             <span className="block text-transparent bg-clip-text bg-gradient-to-r from-[#C9A84C] via-[#E8C96A] to-[#C9A84C] text-5xl sm:text-6xl lg:text-7xl xl:text-8xl mt-1">
-              {t("hero.tagline2")}
+              {cfg ? (lang === "ar" ? cfg.heroTagline2Ar : cfg.heroTagline2En) : t("hero.tagline2")}
             </span>
           </h1>
 
           {/* Sub */}
           <p className="text-[#666666] text-base sm:text-lg max-w-2xl leading-relaxed mb-10">
-            {t("hero.sub")}
+            {cfg ? (lang === "ar" ? cfg.heroSubAr : cfg.heroSubEn) : t("hero.sub")}
           </p>
 
           {/* CTAs */}
@@ -124,7 +138,12 @@ export default function HeroSection() {
 
         {/* Stats */}
         <div className="grid grid-cols-2 sm:grid-cols-4 gap-px mt-20 bg-[#E8E3DB] rounded-2xl overflow-hidden border border-[#E8E3DB]">
-          {stats.map((stat, i) => (
+          {[
+            { value: cfg?.statDeliveriesValue ?? "50K+", label: t("hero.stat1") },
+            { value: cfg?.statCitiesValue ?? "50+", label: t("hero.stat2") },
+            { value: cfg?.statFleetValue ?? "100+", label: t("hero.stat3") },
+            { value: cfg?.statYearsValue ?? "10+", label: t("hero.stat4") },
+          ].map((stat, i) => (
             <div
               key={i}
               className="bg-white hover:bg-[#F8F6F1] transition-colors duration-300 p-6 sm:p-8 text-center group"
@@ -133,7 +152,7 @@ export default function HeroSection() {
                 {stat.value}
               </div>
               <div className="text-[#888888] text-xs font-medium tracking-wider uppercase">
-                {t(stat.key)}
+                {stat.label}
               </div>
             </div>
           ))}

@@ -35,13 +35,24 @@ interface FleetItem {
 }
 
 interface SiteSettings {
-  phone: string;
+  phone1: string;
+  phone2: string;
   email: string;
   address: string;
   addressAr: string;
-  socialLinks: SocialLink[];
   footerTagline: string;
   footerTaglineAr: string;
+  heroTaglineEn: string;
+  heroTagline2En: string;
+  heroSubEn: string;
+  heroTaglineAr: string;
+  heroTagline2Ar: string;
+  heroSubAr: string;
+  statDeliveriesValue: string;
+  statCitiesValue: string;
+  statFleetValue: string;
+  statYearsValue: string;
+  socialLinks: SocialLink[];
 }
 
 const TikTokIcon = () => (
@@ -408,82 +419,176 @@ export default function AdminPage() {
         )}
 
         {/* SETTINGS TAB */}
-        {activeTab === "settings" && settings && (
+        {activeTab === "settings" && (
           <div>
             <div className="flex items-center justify-between mb-8">
               <div>
                 <h1 className="text-2xl font-black text-[#111111] mb-1">Site Settings</h1>
-                <p className="text-[#888888] text-sm">Manage footer and contact information</p>
+                <p className="text-[#888888] text-sm">Edit contact info, hero text, stats, footer &amp; social links</p>
               </div>
-              <button onClick={saveSettings} disabled={saving}
+              <button onClick={saveSettings} disabled={saving || !settings}
                 className="flex items-center gap-2 px-5 py-2.5 rounded-xl bg-gradient-to-r from-[#C9A84C] to-[#E8C96A] text-[#050505] font-bold text-sm hover:shadow-lg transition-all duration-300 disabled:opacity-60">
-                {settingsSaved ? <><CheckCircle size={15} /> Saved!</> : <><Save size={15} /> Save Changes</>}
+                {settingsSaved ? <><CheckCircle size={15} /> Saved!</> : saving ? <><Loader2 size={15} className="animate-spin" /> Saving...</> : <><Save size={15} /> Save Changes</>}
               </button>
             </div>
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-              {/* Contact info */}
-              <div className="bg-white border border-[#E8E3DB] rounded-2xl p-6 shadow-sm">
-                <h3 className="text-[#111111] font-semibold text-sm mb-5 flex items-center gap-2"><Phone className="w-4 h-4 text-[#C9A84C]" /> Contact Information</h3>
-                <div className="space-y-4">
-                  {[
-                    { label: "Phone Number", key: "phone" as const, type: "text" },
-                    { label: "Email Address", key: "email" as const, type: "email" },
-                    { label: "Address (English)", key: "address" as const, type: "text" },
-                    { label: "Address (Arabic)", key: "addressAr" as const, type: "text", rtl: true },
-                  ].map((f) => (
-                    <div key={f.key}>
-                      <label className="block text-[#888888] text-xs uppercase tracking-wider mb-2">{f.label}</label>
-                      <input type={f.type} dir={f.rtl ? "rtl" : undefined} value={settings[f.key]}
-                        onChange={(e) => setSettings((p) => p ? { ...p, [f.key]: e.target.value } : p)}
+
+            {!settings ? (
+              <div className="flex items-center justify-center py-32">
+                <div className="text-center">
+                  <Loader2 className="w-8 h-8 animate-spin text-[#C9A84C] mx-auto mb-3" />
+                  <p className="text-[#888888] text-sm">Loading settings...</p>
+                </div>
+              </div>
+            ) : (
+              <div className="space-y-6">
+                {/* ── Contact Information ── */}
+                <div className="bg-white border border-[#E8E3DB] rounded-2xl p-6 shadow-sm">
+                  <h3 className="text-[#111111] font-semibold text-sm mb-5 flex items-center gap-2">
+                    <Phone className="w-4 h-4 text-[#C9A84C]" /> Contact Information
+                  </h3>
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <div>
+                      <label className="block text-[#888888] text-xs uppercase tracking-wider mb-2">Phone 1 (Primary)</label>
+                      <input type="text" value={settings.phone1}
+                        onChange={(e) => setSettings((p) => p ? { ...p, phone1: e.target.value } : p)}
+                        className={inputClass} placeholder="+966 55 548 5326" />
+                    </div>
+                    <div>
+                      <label className="block text-[#888888] text-xs uppercase tracking-wider mb-2">Phone 2 (Secondary)</label>
+                      <input type="text" value={settings.phone2}
+                        onChange={(e) => setSettings((p) => p ? { ...p, phone2: e.target.value } : p)}
+                        className={inputClass} placeholder="+966 59 272 7115" />
+                    </div>
+                    <div>
+                      <label className="block text-[#888888] text-xs uppercase tracking-wider mb-2">Email Address</label>
+                      <input type="email" value={settings.email}
+                        onChange={(e) => setSettings((p) => p ? { ...p, email: e.target.value } : p)}
                         className={inputClass} />
                     </div>
-                  ))}
-                </div>
-              </div>
-              {/* Footer tagline */}
-              <div className="bg-white border border-[#E8E3DB] rounded-2xl p-6 shadow-sm">
-                <h3 className="text-[#111111] font-semibold text-sm mb-5 flex items-center gap-2"><MessageSquare className="w-4 h-4 text-[#C9A84C]" /> Footer Tagline</h3>
-                <div className="space-y-4">
-                  <div>
-                    <label className="block text-[#888888] text-xs uppercase tracking-wider mb-2">Tagline (English)</label>
-                    <textarea rows={3} value={settings.footerTagline}
-                      onChange={(e) => setSettings((p) => p ? { ...p, footerTagline: e.target.value } : p)}
-                      className={`${inputClass} resize-none`} />
-                  </div>
-                  <div>
-                    <label className="block text-[#888888] text-xs uppercase tracking-wider mb-2">Tagline (Arabic)</label>
-                    <textarea rows={3} dir="rtl" value={settings.footerTaglineAr}
-                      onChange={(e) => setSettings((p) => p ? { ...p, footerTaglineAr: e.target.value } : p)}
-                      className={`${inputClass} resize-none`} />
-                  </div>
-                </div>
-              </div>
-              {/* Social links */}
-              <div className="lg:col-span-2 bg-white border border-[#E8E3DB] rounded-2xl p-6 shadow-sm">
-                <h3 className="text-[#111111] font-semibold text-sm mb-5 flex items-center gap-2"><Instagram className="w-4 h-4 text-[#C9A84C]" /> Social Media Links</h3>
-                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-                  {settings.socialLinks.map((social) => (
-                    <div key={social.platform}
-                      className={`p-4 rounded-xl border transition-all duration-200 ${social.enabled ? "border-[#E8E3DB] bg-[#FAFAF8]" : "border-[#F0EDE8] bg-[#FAFAF8] opacity-50"}`}>
-                      <div className="flex items-center justify-between mb-3">
-                        <div className="flex items-center gap-2">
-                          <span className="text-[#C9A84C]">{platformIcons[social.platform]}</span>
-                          <span className="text-[#111111] text-sm font-medium">{platformLabels[social.platform]}</span>
-                        </div>
-                        <button onClick={() => updateSocial(social.platform, "enabled", !social.enabled)}
-                          className="text-[#BBBBBB] hover:text-[#C9A84C] transition-colors">
-                          {social.enabled ? <ToggleRight className="w-5 h-5 text-[#C9A84C]" /> : <ToggleLeft className="w-5 h-5" />}
-                        </button>
-                      </div>
-                      <input type="url" value={social.url} disabled={!social.enabled}
-                        onChange={(e) => updateSocial(social.platform, "url", e.target.value)}
-                        placeholder={`https://${social.platform}.com/...`}
-                        className="w-full bg-[#F4F2ED] border border-[#E0DBD3] rounded-lg px-3 py-2 text-[#555555] placeholder-[#CCCCCC] text-xs focus:outline-none focus:border-[#C9A84C]/40 transition-all disabled:opacity-40" />
+                    <div>
+                      <label className="block text-[#888888] text-xs uppercase tracking-wider mb-2">Footer Tagline (English)</label>
+                      <input type="text" value={settings.footerTagline}
+                        onChange={(e) => setSettings((p) => p ? { ...p, footerTagline: e.target.value } : p)}
+                        className={inputClass} />
                     </div>
-                  ))}
+                    <div className="sm:col-span-2">
+                      <label className="block text-[#888888] text-xs uppercase tracking-wider mb-2">Address (English)</label>
+                      <textarea rows={2} value={settings.address}
+                        onChange={(e) => setSettings((p) => p ? { ...p, address: e.target.value } : p)}
+                        className={`${inputClass} resize-none`} />
+                    </div>
+                    <div className="sm:col-span-2">
+                      <label className="block text-[#888888] text-xs uppercase tracking-wider mb-2">Address (Arabic)</label>
+                      <textarea rows={2} dir="rtl" value={settings.addressAr}
+                        onChange={(e) => setSettings((p) => p ? { ...p, addressAr: e.target.value } : p)}
+                        className={`${inputClass} resize-none`} />
+                    </div>
+                    <div className="sm:col-span-2">
+                      <label className="block text-[#888888] text-xs uppercase tracking-wider mb-2">Footer Tagline (Arabic)</label>
+                      <input type="text" dir="rtl" value={settings.footerTaglineAr}
+                        onChange={(e) => setSettings((p) => p ? { ...p, footerTaglineAr: e.target.value } : p)}
+                        className={inputClass} />
+                    </div>
+                  </div>
+                </div>
+
+                {/* ── Hero Section ── */}
+                <div className="bg-white border border-[#E8E3DB] rounded-2xl p-6 shadow-sm">
+                  <h3 className="text-[#111111] font-semibold text-sm mb-5 flex items-center gap-2">
+                    <Video className="w-4 h-4 text-[#C9A84C]" /> Hero Section Text
+                  </h3>
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <div>
+                      <label className="block text-[#888888] text-xs uppercase tracking-wider mb-2">Heading Line 1 (English)</label>
+                      <input type="text" value={settings.heroTaglineEn}
+                        onChange={(e) => setSettings((p) => p ? { ...p, heroTaglineEn: e.target.value } : p)}
+                        className={inputClass} />
+                    </div>
+                    <div>
+                      <label className="block text-[#888888] text-xs uppercase tracking-wider mb-2">Heading Line 2 — Gold (English)</label>
+                      <input type="text" value={settings.heroTagline2En}
+                        onChange={(e) => setSettings((p) => p ? { ...p, heroTagline2En: e.target.value } : p)}
+                        className={inputClass} />
+                    </div>
+                    <div className="sm:col-span-2">
+                      <label className="block text-[#888888] text-xs uppercase tracking-wider mb-2">Sub-heading (English)</label>
+                      <textarea rows={2} value={settings.heroSubEn}
+                        onChange={(e) => setSettings((p) => p ? { ...p, heroSubEn: e.target.value } : p)}
+                        className={`${inputClass} resize-none`} />
+                    </div>
+                    <div>
+                      <label className="block text-[#888888] text-xs uppercase tracking-wider mb-2">Heading Line 1 (Arabic)</label>
+                      <input type="text" dir="rtl" value={settings.heroTaglineAr}
+                        onChange={(e) => setSettings((p) => p ? { ...p, heroTaglineAr: e.target.value } : p)}
+                        className={inputClass} />
+                    </div>
+                    <div>
+                      <label className="block text-[#888888] text-xs uppercase tracking-wider mb-2">Heading Line 2 — Gold (Arabic)</label>
+                      <input type="text" dir="rtl" value={settings.heroTagline2Ar}
+                        onChange={(e) => setSettings((p) => p ? { ...p, heroTagline2Ar: e.target.value } : p)}
+                        className={inputClass} />
+                    </div>
+                    <div className="sm:col-span-2">
+                      <label className="block text-[#888888] text-xs uppercase tracking-wider mb-2">Sub-heading (Arabic)</label>
+                      <textarea rows={2} dir="rtl" value={settings.heroSubAr}
+                        onChange={(e) => setSettings((p) => p ? { ...p, heroSubAr: e.target.value } : p)}
+                        className={`${inputClass} resize-none`} />
+                    </div>
+                  </div>
+                </div>
+
+                {/* ── Hero Stats ── */}
+                <div className="bg-white border border-[#E8E3DB] rounded-2xl p-6 shadow-sm">
+                  <h3 className="text-[#111111] font-semibold text-sm mb-5 flex items-center gap-2">
+                    <CheckCircle className="w-4 h-4 text-[#C9A84C]" /> Hero Statistics
+                  </h3>
+                  <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
+                    {([
+                      { label: "Deliveries Value", key: "statDeliveriesValue" as const },
+                      { label: "Cities Value", key: "statCitiesValue" as const },
+                      { label: "Fleet Value", key: "statFleetValue" as const },
+                      { label: "Years Value", key: "statYearsValue" as const },
+                    ]).map((f) => (
+                      <div key={f.key} className="bg-[#F4F2ED] border border-[#E8E3DB] rounded-xl p-4 text-center">
+                        <div className="text-2xl font-black text-[#C9A84C] mb-2">{settings[f.key]}</div>
+                        <label className="block text-[#888888] text-[10px] uppercase tracking-wider mb-2">{f.label}</label>
+                        <input type="text" value={settings[f.key]}
+                          onChange={(e) => setSettings((p) => p ? { ...p, [f.key]: e.target.value } : p)}
+                          className="w-full bg-white border border-[#E0DBD3] rounded-lg px-3 py-1.5 text-[#111111] text-sm text-center focus:outline-none focus:border-[#C9A84C]/60 transition-all" />
+                      </div>
+                    ))}
+                  </div>
+                </div>
+
+                {/* ── Social Links ── */}
+                <div className="bg-white border border-[#E8E3DB] rounded-2xl p-6 shadow-sm">
+                  <h3 className="text-[#111111] font-semibold text-sm mb-5 flex items-center gap-2">
+                    <Instagram className="w-4 h-4 text-[#C9A84C]" /> Social Media Links
+                  </h3>
+                  <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                    {settings.socialLinks.map((social) => (
+                      <div key={social.platform}
+                        className={`p-4 rounded-xl border transition-all duration-200 ${social.enabled ? "border-[#E8E3DB] bg-[#FAFAF8]" : "border-[#F0EDE8] bg-[#FAFAF8] opacity-50"}`}>
+                        <div className="flex items-center justify-between mb-3">
+                          <div className="flex items-center gap-2">
+                            <span className="text-[#C9A84C]">{platformIcons[social.platform]}</span>
+                            <span className="text-[#111111] text-sm font-medium">{platformLabels[social.platform]}</span>
+                          </div>
+                          <button onClick={() => updateSocial(social.platform, "enabled", !social.enabled)}
+                            className="text-[#BBBBBB] hover:text-[#C9A84C] transition-colors">
+                            {social.enabled ? <ToggleRight className="w-5 h-5 text-[#C9A84C]" /> : <ToggleLeft className="w-5 h-5" />}
+                          </button>
+                        </div>
+                        <input type="url" value={social.url} disabled={!social.enabled}
+                          onChange={(e) => updateSocial(social.platform, "url", e.target.value)}
+                          placeholder={`https://${social.platform}.com/...`}
+                          className="w-full bg-[#F4F2ED] border border-[#E0DBD3] rounded-lg px-3 py-2 text-[#555555] placeholder-[#CCCCCC] text-xs focus:outline-none focus:border-[#C9A84C]/40 transition-all disabled:opacity-40" />
+                      </div>
+                    ))}
+                  </div>
                 </div>
               </div>
-            </div>
+            )}
           </div>
         )}
 
